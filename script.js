@@ -1,7 +1,16 @@
 let currentTab = 'home';
 
+// Format date as "DD MMM 'YY"
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = date.toLocaleString('en', { month: 'short' });
+    const year = date.getFullYear().toString().slice(-2);
+    return { day, month, year };
+}
+
 function switchTab(tab) {
-    console.log('Switching to tab:', tab);
+    console.log(`Switching to tab: ${tab}`);
     currentTab = tab;
     document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
     document.querySelector(`.tab-button[onclick="switchTab('${tab}')"]`).classList.add('active');
@@ -10,7 +19,7 @@ function switchTab(tab) {
 
 async function loadContent() {
     try {
-        console.log('Loading content for tab:', currentTab);
+        console.log(`Loading content for tab: ${currentTab}`);
 
         // Fetch index.json
         console.log('Fetching index.json');
@@ -22,7 +31,7 @@ async function loadContent() {
         // Process each file
         let allItems = [];
         for (const file of files) {
-            console.log('Fetching file:', file.path);
+            console.log(`Fetching file: ${file.path}`);
             try {
                 const fileContent = await fetch(file.path)
                     .then(res => {
@@ -43,12 +52,12 @@ async function loadContent() {
         }
 
         if (allItems.length === 0) {
-            document.getElementById('content').innerHTML = '<p>No valid items found. Check your Markdown files for correct frontmatter (title, date, time, content).</p>';
+            document.getElementById('content').innerHTML = '<p>No valid items found. Check your Markdown files for correct frontmatter (title, subtitle, date, time, content).</p>';
             console.error('No valid items loaded; check frontmatter in .md files');
             return;
         }
 
-        // Sort by date and time (descending)
+        // Sort by date (descending)
         allItems.sort((a, b) => {
             const dateA = new Date(`${a.date}T${a.time}`);
             const dateB = new Date(`${b.date}T${b.time}`);
@@ -61,7 +70,9 @@ async function loadContent() {
 
         // Filter based on tab
         let filteredItems = allItems;
-        if (currentTab === 'assets') {
+        if (currentTab === 'news') {
+            filteredItems = allItems.filter(item => item.type === 'news');
+        } else if (currentTab === 'assets') {
             filteredItems = allItems.filter(item => item.type === 'assets');
         } else if (currentTab === 'games') {
             filteredItems = allItems.filter(item => item.type === 'games');
@@ -74,10 +85,29 @@ async function loadContent() {
         if (filteredItems.length === 0) {
             listHtml += `<li>No ${currentTab} items available.</li>`;
         } else {
-            filteredItems.forEach(item => {
+            filteredItems.forEach((item, index) => {
                 const tag = item.type === 'news' ? '[NEWS]' : item.type === 'assets' ? '[ASSET]' : '[GAME RELEASE]';
                 const tagClass = `category-${item.type}`;
-                listHtml += `<li><span class="category-tag ${tagClass}">${tag}</span><a href="#" onclick="loadItem('${item.file}')">${item.title} - ${item.date} ${item.time}</a></li>`;
+                const subtitleHtml = item.subtitle ? `<div class="subtitle">${item.subtitle}</div>` : '';
+                const { day, month, year } = formatDate(item.date);
+                const isLatest = index === 0 && currentTab === 'home'; // Latest only in Home tab
+                listHtml += `
+                    <li>
+                        <div class="entry-button ${isLatest ? 'latest-entry' : ''}" onclick="loadItem('${item.file}')">
+                            <div class="date-section">
+                                <div class="date-day">${day}</div>
+                                <div class="date-month">${month}</div>
+                                <div class="date-year">'${year}</div>
+                            </div>
+                            <div class="entry-content">
+                                <div class="title">
+                                    <span class="category-tag ${tagClass}">${tag}</span>
+                                    ${item.title}
+                                </div>
+                                ${subtitleHtml}
+                            </div>
+                        </div>
+                    </li>`;
             });
         }
         listHtml += '</ul>';
