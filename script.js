@@ -90,7 +90,7 @@ async function loadContent() {
 
         let listHtml = `<h2>${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2><ul>`;
         if (filteredItems.length === 0) {
-            listHtml += `<li>No ${currentTab} items available.</li>`;
+            listHtml += `<li>No ${currentTab} items available.</li></ul><div class="list-bottom-space"></div>`;
         } else {
             filteredItems.forEach((item, index) => {
                 const tag = item.type === 'news' ? '[NEWS]' : item.type === 'assets' ? '[ASSET]' : '[GAME RELEASE]';
@@ -117,8 +117,8 @@ async function loadContent() {
                         </div>
                     </li>`;
             });
+            listHtml += `</ul><div class="list-bottom-space"></div>`;
         }
-        listHtml += '</ul>';
         document.getElementById('content').innerHTML = listHtml;
     } catch (error) {
         console.error('Error loading content:', error);
@@ -206,7 +206,7 @@ function createDynamicElements() {
         element.style.position = 'absolute';
         element.style.opacity = '0.7';
         element.style.background = colors[Math.floor(Math.random() * colors.length)];
-        element.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)'; // Triangle shape
+        element.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
         element.style.width = `${150 + Math.random() * 100}px`;
         element.style.height = `${150 + Math.random() * 100}px`;
         background.appendChild(element);
@@ -235,7 +235,6 @@ function animateElements() {
             let x = parseFloat(element.style.left);
             let y = parseFloat(element.style.top);
 
-            // Bounce off screen walls
             if (x + size > window.innerWidth) {
                 vx = -Math.abs(vx) * 0.8;
                 x = window.innerWidth - size;
@@ -251,7 +250,6 @@ function animateElements() {
                 y = 0;
             }
 
-            // Mouse proximity detection
             const mouseX = mouseXPos || window.innerWidth / 2;
             const mouseY = mouseYPos || window.innerHeight / 2;
             const dx = mouseX - (x + size / 2);
@@ -265,7 +263,6 @@ function animateElements() {
                 vy += Math.sin(angle) * force * 0.1;
             }
 
-            // Slow bounce
             x += vx;
             y += vy;
             vx *= 0.98;
@@ -281,10 +278,24 @@ function animateElements() {
     update();
 }
 
+function createScrollingText() {
+    const container = document.querySelector('.scrolling-text-container');
+    for (let i = 0; i < 3; i++) {
+        const text = document.createElement('div');
+        text.className = 'scrolling-text';
+        text.textContent = 'MERINGUE ROUGE'.padEnd(20, ' ');
+        text.style.top = `${i * 40}px`;
+        container.appendChild(text);
+    }
+}
+
 document.addEventListener('mousemove', (e) => {
     mouseXPos = e.clientX;
     mouseYPos = e.clientY;
 });
 
-document.addEventListener('load', createDynamicElements());
+document.addEventListener('load', () => {
+    createDynamicElements();
+    createScrollingText();
+});
 switchTab('home');
