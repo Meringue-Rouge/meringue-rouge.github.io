@@ -1,6 +1,8 @@
 .main-container {
     display: flex;
     flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .left-panel {
@@ -8,33 +10,64 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Full viewport height */
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .side-image {
     width: 100%;
-    height: calc(100% - 60px); /* Reserve space for social icons */
+    height: calc(100% - 24px);
     object-fit: cover;
     object-position: center;
+    margin: 0 0 24px 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.social-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .social-icons {
-    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
     text-align: center;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+}
+
+.logo {
+    height: 72px; /* 3x social icon height */
 }
 
 .right-panel {
     flex: 1;
     padding: 20px;
+    overflow-y: auto;
 }
 
 .tabs {
-    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
 }
 
 .tab-button {
     padding: 10px;
-    margin-right: 10px;
     cursor: pointer;
 }
 
@@ -68,33 +101,37 @@ li {
 }
 
 .latest-entry {
-    border: 2px dashed #ffd700; /* Golden dashed border */
+    border: 2px dashed #ffd700;
     animation: dash 4s linear infinite;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8); /* Golden glow */
-    background-color: #fffdf0; /* Light golden background */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    background-color: #fffdf0;
 }
 
 @keyframes dash {
     to {
-        border-image: linear-gradient(to right, #ffd700, transparent) 1;
+        border-image: linear-gradient(to right, #ffd700, transparent);
         border-image-slice: 1;
     }
 }
 
 @keyframes pulse {
     0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.8); }
-    50% { box-shadow: 0 0 20px rgba(255, 215, 0, 1); }
+    50% { box-shadow: 0 0 20px rgba(255, 205, 0, 1); }
     100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.8); }
 }
 
-.latest-entry {
-    animation: pulse 2s ease-in-out infinite;
+.date {
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
 .date-section {
     width: 80px;
-    text-align: center;
     padding: 10px;
+    text-align: center;
     background-color: #f0f0f0;
     border-right: 1px solid #ddd;
     margin-right: 10px;
@@ -113,7 +150,7 @@ li {
 }
 
 .date-year {
-    font-size: 12px;
+    font-size: 14px;
     color: #777;
 }
 
@@ -124,10 +161,15 @@ li {
 }
 
 .title {
-    display: inline-flex;
+    display: inline;
     align-items: center;
     color: #007bff;
     font-weight: bold;
+}
+
+.title a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .title:hover {
@@ -138,49 +180,74 @@ li {
     font-style: italic;
     color: #555;
     padding-left: 20px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .category-tag {
     font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 3px;
     margin-right: 5px;
+    padding: 2px 6px;
+    border-radius: 4px;
 }
 
 .category-news {
-    background-color: #ff4d4d; /* Red for NEWS */
+    background-color: #ff4d4d;
     color: white;
 }
 
 .category-assets {
-    background-color: #28a745; /* Green for ASSET */
+    background-color: #28a745;
     color: white;
 }
 
 .category-games {
-    background-color: #007bff; /* Blue for GAME RELEASE */
+    background-color: #007bff;
     color: white;
 }
 
 @media (max-width: 768px) {
     .main-container {
         flex-direction: column;
+        height: auto;
     }
     .left-panel {
         width: 100%;
         padding: 10px;
-        height: auto; /* Allow natural height on mobile */
+        height: auto;
     }
     .side-image {
         width: 100%;
-        height: 150px; /* Fixed height for mobile, crops tall image */
-        object-fit: cover;
-        object-position: center top; /* Focus on top for character */
+        height: auto;
+        max-height: 300px;
+        object-fit: contain;
+        object-position: center;
+        margin: 0 0 12px;
+    }
+    .header {
+        flex-direction: column;
+        align-items: center;
+    }
+    .social-logo-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        width: auto;
     }
     .social-icons {
-        margin-top: 10px;
-        text-align: center;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 10px;
+        display: flex;
+        gap: 15px;
+    }
+    .social-icons a {
+        color: white;
+        font-size: 20px;
+        margin: 0;
+    }
+    .logo {
+        height: 60px; /* 3x mobile social icon height */
     }
     .right-panel {
         padding: 10px;
@@ -189,9 +256,10 @@ li {
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
+        width: 100%;
     }
     .tab-button {
-        flex: 1 1 40%;
+        flex: 1;
         text-align: center;
         margin: 5px 0;
         padding: 8px;
@@ -204,7 +272,7 @@ li {
     .date-section {
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid #ddd;
+        border-bottom: none;
         margin-right: 0;
         margin-bottom: 10px;
         padding: 5px;

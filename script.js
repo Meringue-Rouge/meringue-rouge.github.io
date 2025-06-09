@@ -9,6 +9,20 @@ function formatDate(dateStr) {
     return { day, month, year };
 }
 
+// Switch side image based on screen size
+function updateSideImage() {
+    const sideImage = document.getElementById('side-image');
+    if (window.innerWidth <= 768) {
+        sideImage.src = 'images/character-mobile.png';
+    } else {
+        sideImage.src = 'images/character.png';
+    }
+}
+
+// Run on load and resize
+window.addEventListener('load', updateSideImage);
+window.addEventListener('resize', updateSideImage);
+
 function switchTab(tab) {
     console.log(`Switching to tab: ${tab}`);
     currentTab = tab;
@@ -35,7 +49,7 @@ async function loadContent() {
             try {
                 const fileContent = await fetch(file.path)
                     .then(res => {
-                        if (!res.ok) throw new Error(`Failed to load ${file.path}: ${res.status} ${res.statusText}`);
+                        if (!res.ok) throw new Error(`Failed to load ${file.path}: ${response.status} ${response.statusText}`);
                         return res.text();
                     });
                 console.log(`Raw content of ${file.path}:`, JSON.stringify(fileContent));
@@ -47,7 +61,7 @@ async function loadContent() {
                     console.warn(`Skipping ${file.path} due to invalid frontmatter`);
                 }
             } catch (error) {
-                console.error(`Error processing ${file.path}:`, error);
+                console.error(`Error processing ${file.path}: ${error}`);
             }
         }
 
