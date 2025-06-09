@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meringue Rouge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="left-panel">
+            <img src="images/portrait.jpg" alt="Meringue Rouge" style="width: 100%;">
+            <div class="social-icons">
+                <a href="https://x.com/meringuerouge" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://youtube.com/meringuerouge" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('home')">Home</button>
+                <button class="tab-button" onclick="switchTab('assets')">Assets</button>
+                <button class="tab-button" onclick="switchTab('games')">Games</button>
+            </div>
+            <div id="content"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+  {
+    "type": "news",
+    "path": "news/news1.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/asset1.md"
+  },
+  {
+    "type": "games",
+    "path": "games/game1.md"
+  }
+]

@@ -1,0 +1,102 @@
+.main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-panel {
+    width: 300px;
+    padding: 20px;
+}
+
+.right-panel {
+    flex: 1;
+    padding: 20px;
+}
+
+.language-toggle {
+    margin-bottom: 10px;
+}
+
+.lang-button {
+    padding: 8px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.lang-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.tabs {
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.tab-button.active {
+    background-color: #ccc;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+li a:hover {
+    text-decoration: underline;
+}
+
+.category-tag {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.category-news {
+    background-color: #ff4d4d; /* Red for NEWS */
+    color: white;
+}
+
+.category-assets {
+    background-color: #28a745; /* Green for ASSET */
+    color: white;
+}
+
+.category-games {
+    background-color: #007bff; /* Blue for GAME RELEASE */
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+    .left-panel {
+        width: 100%;
+    }
+    .right-panel {
+        width: 100%;
+    }
+}
