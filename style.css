@@ -139,6 +139,10 @@
     transform: translateZ(10px);
 }
 
+.tab-button:hover {
+    color: #fff; /* White text on hover */
+}
+
 .tab-button:hover::before {
     content: '';
     position: absolute;
@@ -191,6 +195,15 @@ li {
     overflow: hidden;
 }
 
+.entry-button:hover {
+    color: #fff; /* White text on hover for all text inside */
+}
+
+.entry-button:hover .title,
+.entry-button:hover .subtitle {
+    color: #fff; /* Ensure title and subtitle change to white */
+}
+
 .entry-button:hover::before {
     content: '';
     position: absolute;
@@ -211,24 +224,16 @@ li {
 }
 
 .latest-entry {
-    border: 2px dashed #ff0000;
-    animation: dash 4s linear infinite, pulse 2s ease-in-out infinite;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-    background: #fff;
-    transform: translateZ(15px);
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ff0000;
+    animation: newPulse 2s infinite alternate;
+    transform: translateZ(15px) scale(1.02);
+    position: relative;
 }
 
-@keyframes dash {
-    to {
-        border-image: linear-gradient(to right, #ff0000, transparent);
-        border-image-slice: 1;
-    }
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
-    50% { box-shadow: 0 0 20px rgba(255, 0, 0, 1); }
-    100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+@keyframes newPulse {
+    0% { box-shadow: 0 0 5px rgba(255, 0, 0, 0.3); transform: translateZ(15px) scale(1.02); }
+    100% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); transform: translateZ(20px) scale(1.03); }
 }
 
 .date-section {
@@ -287,6 +292,7 @@ li {
     padding-left: 20px;
     margin-top: 5px;
     font-size: 14px;
+    transition: color 0.3s ease;
     transform: translateZ(5px);
 }
 
@@ -444,6 +450,11 @@ li {
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
     margin: 20px 0;
     transform: translateZ(10px);
+}
+
+/* List Bottom Space */
+.list-bottom-space {
+    height: 120px;
 }
 
 /* Scrolling Text */

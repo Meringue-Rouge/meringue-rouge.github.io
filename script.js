@@ -279,7 +279,10 @@ function animateElements() {
 }
 
 function createScrollingText() {
-    const container = document.querySelector('.scrolling-text-container');
+    const container = document.createElement('div');
+    container.className = 'scrolling-text-container';
+    document.body.appendChild(container);
+
     for (let i = 0; i < 3; i++) {
         const text = document.createElement('div');
         text.className = 'scrolling-text';
