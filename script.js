@@ -98,7 +98,7 @@ async function loadContent() {
                 const subtitleHtml = item.subtitle ? `<div class="subtitle">${item.subtitle}</div>` : '';
                 const { day, month, year } = formatDate(item.date);
                 const isLatest = index === 0 && currentTab === 'home';
-                const offset = index * 2; // Light offset for 3D effect
+                const offset = index * 2;
                 listHtml += `
                     <li style="transform: translateZ(${5 + offset}px) translateX(${offset}px);">
                         <div class="entry-button ${isLatest ? 'latest-entry' : ''}" onclick="loadItem('${item.file}')">
@@ -196,13 +196,11 @@ function loadItem(file) {
 }
 
 function createDynamicElements() {
-    const backgrounds = document.querySelectorAll('.background-elements');
+    const background = document.querySelector('.global-background');
     const colors = ['#ff0000', '#ff3333', '#ff6666', '#ff9999', '#ffcccc'];
     const numElements = 15;
-    const sections = Array.from(backgrounds);
 
     for (let i = 0; i < numElements; i++) {
-        const section = sections[i % sections.length];
         const element = document.createElement('div');
         element.className = 'dynamic-triangle';
         element.style.position = 'absolute';
@@ -211,11 +209,11 @@ function createDynamicElements() {
         element.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)'; // Triangle shape
         element.style.width = `${150 + Math.random() * 100}px`;
         element.style.height = `${150 + Math.random() * 100}px`;
-        section.appendChild(element);
+        background.appendChild(element);
 
         const size = parseInt(element.style.width);
-        const x = Math.random() * (section.offsetWidth - size);
-        const y = Math.random() * (section.offsetHeight - size);
+        const x = Math.random() * (window.innerWidth - size);
+        const y = Math.random() * (window.innerHeight - size);
         element.style.left = `${x}px`;
         element.style.top = `${y}px`;
 
@@ -223,8 +221,7 @@ function createDynamicElements() {
             element,
             vx: (Math.random() - 0.5) * 0.5,
             vy: (Math.random() - 0.5) * 0.5,
-            size,
-            section
+            size
         });
     }
 
@@ -232,27 +229,23 @@ function createDynamicElements() {
 }
 
 function animateElements() {
-    const container = document.querySelector('.main-container');
-    const containerRect = container.getBoundingClientRect();
-
     function update() {
         dynamicElements.forEach(item => {
-            let { element, vx, vy, size, section } = item;
+            let { element, vx, vy, size } = item;
             let x = parseFloat(element.style.left);
             let y = parseFloat(element.style.top);
-            const sectionRect = section.getBoundingClientRect();
 
-            // Bounce off section walls
-            if (x + size > sectionRect.width) {
+            // Bounce off screen walls
+            if (x + size > window.innerWidth) {
                 vx = -Math.abs(vx) * 0.8;
-                x = sectionRect.width - size;
+                x = window.innerWidth - size;
             } else if (x < 0) {
                 vx = Math.abs(vx) * 0.8;
                 x = 0;
             }
-            if (y + size > sectionRect.height) {
+            if (y + size > window.innerHeight) {
                 vy = -Math.abs(vy) * 0.8;
-                y = sectionRect.height - size;
+                y = window.innerHeight - size;
             } else if (y < 0) {
                 vy = Math.abs(vy) * 0.8;
                 y = 0;
@@ -261,8 +254,8 @@ function animateElements() {
             // Mouse proximity detection
             const mouseX = mouseXPos || window.innerWidth / 2;
             const mouseY = mouseYPos || window.innerHeight / 2;
-            const dx = mouseX - (x + sectionRect.left + size / 2);
-            const dy = mouseY - (y + sectionRect.top + size / 2);
+            const dx = mouseX - (x + size / 2);
+            const dy = mouseY - (y + size / 2);
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             if (distance < 200) {
