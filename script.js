@@ -1,6 +1,8 @@
 let currentTab = 'home';
+let dynamicElements = [];
+let mouseXPos = null;
+let mouseYPos = null;
 
-// Format date as "DD MMM 'YY"
 function formatDate(dateStr) {
     const date = new Date(dateStr);
     const day = date.getDate().toString().padStart(2, '0');
@@ -9,7 +11,6 @@ function formatDate(dateStr) {
     return { day, month, year };
 }
 
-// Switch side image based on screen size
 function updateSideImage() {
     const sideImage = document.getElementById('side-image');
     if (window.innerWidth <= 768) {
@@ -19,7 +20,6 @@ function updateSideImage() {
     }
 }
 
-// Run on load and resize
 window.addEventListener('load', updateSideImage);
 window.addEventListener('resize', updateSideImage);
 
@@ -35,17 +35,13 @@ async function loadContent() {
     try {
         console.log(`Loading content for tab: ${currentTab}`);
 
-        // Fetch index.json
-        console.log('Fetching index.json');
         const response = await fetch('index.json');
         if (!response.ok) throw new Error(`Failed to load index.json: ${response.status} ${response.statusText}`);
         const files = await response.json();
         console.log('index.json contents:', files);
 
-        // Process each file
         let allItems = [];
         for (const file of files) {
-            console.log(`Fetching file: ${file.path}`);
             try {
                 const fileContent = await fetch(file.path)
                     .then(res => {
@@ -71,7 +67,6 @@ async function loadContent() {
             return;
         }
 
-        // Sort by date (descending)
         allItems.sort((a, b) => {
             const dateA = new Date(`${a.date}T${a.time}`);
             const dateB = new Date(`${b.date}T${b.time}`);
@@ -82,7 +77,6 @@ async function loadContent() {
             return dateB - dateA;
         });
 
-        // Filter based on tab
         let filteredItems = allItems;
         if (currentTab === 'news') {
             filteredItems = allItems.filter(item => item.type === 'news');
@@ -94,7 +88,6 @@ async function loadContent() {
 
         console.log('Filtered items:', filteredItems);
 
-        // Render list
         let listHtml = `<h2>${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2><ul>`;
         if (filteredItems.length === 0) {
             listHtml += `<li>No ${currentTab} items available.</li>`;
@@ -104,9 +97,10 @@ async function loadContent() {
                 const tagClass = `category-${item.type}`;
                 const subtitleHtml = item.subtitle ? `<div class="subtitle">${item.subtitle}</div>` : '';
                 const { day, month, year } = formatDate(item.date);
-                const isLatest = index === 0 && currentTab === 'home'; // Latest only in Home tab
+                const isLatest = index === 0 && currentTab === 'home';
+                const offset = index * 2; // Light offset for 3D effect
                 listHtml += `
-                    <li>
+                    <li style="transform: translateZ(${5 + offset}px) translateX(${offset}px);">
                         <div class="entry-button ${isLatest ? 'latest-entry' : ''}" onclick="loadItem('${item.file}')">
                             <div class="date-section">
                                 <div class="date-day">${day}</div>
@@ -133,7 +127,6 @@ async function loadContent() {
 }
 
 function parseFrontmatter(content, type, file) {
-    // Handle both \n and \r\n line endings
     const frontmatterRegex = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]*/;
     const match = content.match(frontmatterRegex);
     if (!match) {
@@ -163,7 +156,6 @@ function parseFrontmatter(content, type, file) {
         return null;
     }
 
-    // Validate date and time format
     const dateTime = new Date(`${metadata.date}T${metadata.time}`);
     if (isNaN(dateTime)) {
         console.warn(`Invalid date/time format in ${file}: ${metadata.date} ${metadata.time}`);
@@ -194,7 +186,7 @@ function loadItem(file) {
                 }
             });
             const html = marked.parse(metadata.content);
-            const contentHtml = `<button onclick="switchTab('${currentTab}')">Back to List</button><br>${html}`;
+            const contentHtml = `<div class="markdown-frame"><button onclick="switchTab('${currentTab}')">Back to List</button><br>${html}</div>`;
             document.getElementById('content').innerHTML = contentHtml;
         })
         .catch(error => {
@@ -203,5 +195,103 @@ function loadItem(file) {
         });
 }
 
-// Initial load
+function createDynamicElements() {
+    const backgrounds = document.querySelectorAll('.background-elements');
+    const colors = ['#ff0000', '#ff3333', '#ff6666', '#ff9999', '#ffcccc'];
+    const numElements = 15;
+    const sections = Array.from(backgrounds);
+
+    for (let i = 0; i < numElements; i++) {
+        const section = sections[i % sections.length];
+        const element = document.createElement('div');
+        element.className = 'dynamic-triangle';
+        element.style.position = 'absolute';
+        element.style.opacity = '0.7';
+        element.style.background = colors[Math.floor(Math.random() * colors.length)];
+        element.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)'; // Triangle shape
+        element.style.width = `${150 + Math.random() * 100}px`;
+        element.style.height = `${150 + Math.random() * 100}px`;
+        section.appendChild(element);
+
+        const size = parseInt(element.style.width);
+        const x = Math.random() * (section.offsetWidth - size);
+        const y = Math.random() * (section.offsetHeight - size);
+        element.style.left = `${x}px`;
+        element.style.top = `${y}px`;
+
+        dynamicElements.push({
+            element,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size,
+            section
+        });
+    }
+
+    animateElements();
+}
+
+function animateElements() {
+    const container = document.querySelector('.main-container');
+    const containerRect = container.getBoundingClientRect();
+
+    function update() {
+        dynamicElements.forEach(item => {
+            let { element, vx, vy, size, section } = item;
+            let x = parseFloat(element.style.left);
+            let y = parseFloat(element.style.top);
+            const sectionRect = section.getBoundingClientRect();
+
+            // Bounce off section walls
+            if (x + size > sectionRect.width) {
+                vx = -Math.abs(vx) * 0.8;
+                x = sectionRect.width - size;
+            } else if (x < 0) {
+                vx = Math.abs(vx) * 0.8;
+                x = 0;
+            }
+            if (y + size > sectionRect.height) {
+                vy = -Math.abs(vy) * 0.8;
+                y = sectionRect.height - size;
+            } else if (y < 0) {
+                vy = Math.abs(vy) * 0.8;
+                y = 0;
+            }
+
+            // Mouse proximity detection
+            const mouseX = mouseXPos || window.innerWidth / 2;
+            const mouseY = mouseYPos || window.innerHeight / 2;
+            const dx = mouseX - (x + sectionRect.left + size / 2);
+            const dy = mouseY - (y + sectionRect.top + size / 2);
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 200) {
+                const angle = Math.atan2(dy, dx);
+                const force = (200 - distance) / 200;
+                vx += Math.cos(angle) * force * 0.1;
+                vy += Math.sin(angle) * force * 0.1;
+            }
+
+            // Slow bounce
+            x += vx;
+            y += vy;
+            vx *= 0.98;
+            vy *= 0.98;
+
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
+        });
+
+        requestAnimationFrame(update);
+    }
+
+    update();
+}
+
+document.addEventListener('mousemove', (e) => {
+    mouseXPos = e.clientX;
+    mouseYPos = e.clientY;
+});
+
+document.addEventListener('load', createDynamicElements());
 switchTab('home');
