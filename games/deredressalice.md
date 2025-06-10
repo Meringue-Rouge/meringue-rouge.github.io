@@ -4,6 +4,7 @@ subtitle: Size-Shifting Beat-Them-Up! (Prototype)
 date: 2019-07-31
 time: 00:00
 type: games
+thumbnail: images/deredressalice_thumb.png
 itch_link: https://meringue-rouge.itch.io/dere-dress-alice
 github_link: https://github.com/meringue-rouge/dere-dress-alice
 steam_workshop_link: https://steamcommunity.com/sharedfiles/filedetails/?id=123456789

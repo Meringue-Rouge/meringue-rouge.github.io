@@ -695,6 +695,17 @@ li {
         font-size: 14px;
         padding: 8px;
     }
+    .thumbnail-preview {
+        width: 100%;
+        height: 100px;
+        position: relative;
+        margin-top: 10px;
+    }
+    .full-thumbnail {
+        float: none;
+        margin: 0 auto 10px;
+        max-width: 100%;
+    }
 }
 
 /* Decorative Shapes */
@@ -726,13 +737,9 @@ li {
 
 /* Markdown Content Frame */
 .markdown-frame {
-    border: 2px solid #ff0000;
-    border-radius: 0;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-    margin: 20px 0;
     transform: translateZ(10px);
+    overflow: hidden;
 }
 .markdown-frame button {
     padding: 10px 20px;
@@ -777,4 +784,26 @@ li {
 /* List Bottom Space */
 .list-bottom-space {
     height: 120px;
+}
+
+.thumbnail-preview {
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+.entry-button:hover .thumbnail-preview {
+    opacity: 1;
+}
+.full-thumbnail {
+    float: right;
+    margin-left: 20px;
+    max-width: 200px;
+    border: 2px solid #ff0000;
+    border-radius: 5px;
 }

@@ -123,6 +123,7 @@ async function loadContent() {
                 const isLatest = index === 0 && currentTab === 'all';
                 const offset = index * 2;
                 const isUpdated = item.lastUpdated !== (item.date + 'T' + item.time);
+                const thumbnailHtml = item.thumbnail ? `<div class="thumbnail-preview" style="background-image: url('${item.thumbnail}');"></div>` : '';
                 listHtml += `
                     <li style="transform: translateZ(${5 + offset}px) translateX(${offset}px);">
                         <div class="entry-button ${isLatest ? 'latest-entry' : ''}" data-file="${item.file}" onclick="toggleItem(this, '${item.file}')">
@@ -138,6 +139,7 @@ async function loadContent() {
                                 </div>
                                 ${subtitleHtml}
                             </div>
+                            ${thumbnailHtml}
                         </div>
                         <div class="expanded-content" id="expanded-${item.file.replace(/[\/.]/g, '-')}" style="display: none;"></div>
                     </li>`;
@@ -262,8 +264,10 @@ function toggleItem(button, file) {
                 linksHtml += `<a href="${item.other_link}" target="_blank" class="link-button other-button">Website</a>`;
             }
             
+            const thumbnailHtml = item.thumbnail ? `<img src="${item.thumbnail}" alt="Thumbnail" class="full-thumbnail">` : '';
             expandedDiv.innerHTML = `
                 <div class="markdown-frame">
+                    ${thumbnailHtml}
                     ${html}
                     ${linksHtml ? '<div class="link-buttons">' + linksHtml + '</div>' : ''}
                 </div>`;
