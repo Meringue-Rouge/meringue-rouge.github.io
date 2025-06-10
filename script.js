@@ -1,4 +1,4 @@
-let currentTab = 'home';
+let currentTab = 'all'; // Default to 'all' tab
 let dynamicElements = [];
 let mouseXPos = null;
 let mouseYPos = null;
@@ -52,6 +52,8 @@ async function loadContent() {
                 const item = parseFrontmatter(fileContent, file.type, file.path);
                 if (item) {
                     console.log('Parsed item:', item);
+                    // Default last updated to publish date if not present
+                    item.lastUpdated = item.lastUpdated || item.date + 'T' + item.time;
                     allItems.push(item);
                 } else {
                     console.warn(`Skipping ${file.path} due to invalid frontmatter`);
@@ -68,10 +70,10 @@ async function loadContent() {
         }
 
         allItems.sort((a, b) => {
-            const dateA = new Date(`${a.date}T${a.time}`);
-            const dateB = new Date(`${b.date}T${b.time}`);
+            const dateA = new Date(a.lastUpdated);
+            const dateB = new Date(b.lastUpdated);
             if (isNaN(dateA) || isNaN(dateB)) {
-                console.warn(`Invalid date/time in ${a.file} or ${b.file}`);
+                console.warn(`Invalid lastUpdated in ${a.file} or ${b.file}`);
                 return 0;
             }
             return dateB - dateA;
@@ -84,6 +86,8 @@ async function loadContent() {
             filteredItems = allItems.filter(item => item.type === 'assets');
         } else if (currentTab === 'games') {
             filteredItems = allItems.filter(item => item.type === 'games');
+        } else if (currentTab === 'all') {
+            filteredItems = allItems; // Show all items for 'All' tab
         }
 
         console.log('Filtered items:', filteredItems);
@@ -93,16 +97,17 @@ async function loadContent() {
             listHtml += `<li>No ${currentTab} items available.</li></ul><div class="list-bottom-space"></div>`;
         } else {
             filteredItems.forEach((item, index) => {
-                const tag = item.type === 'news' ? '[NEWS]' : item.type === 'assets' ? '[ASSET]' : '[GAME RELEASE]';
+                const tag = item.type === 'news' ? 'News' : item.type === 'assets' ? 'Asset' : 'Game Release';
                 const tagClass = `category-${item.type}`;
                 const subtitleHtml = item.subtitle ? `<div class="subtitle">${item.subtitle}</div>` : '';
-                const { day, month, year } = formatDate(item.date);
-                const isLatest = index === 0 && currentTab === 'home';
+                const { day, month, year } = formatDate(item.lastUpdated);
+                const isLatest = index === 0 && currentTab === 'all';
                 const offset = index * 2;
+                const isUpdated = item.lastUpdated !== (item.date + 'T' + item.time);
                 listHtml += `
                     <li style="transform: translateZ(${5 + offset}px) translateX(${offset}px);">
                         <div class="entry-button ${isLatest ? 'latest-entry' : ''}" onclick="loadItem('${item.file}')">
-                            <div class="date-section">
+                            <div class="date-section ${isUpdated ? 'updated' : ''}">
                                 <div class="date-day">${day}</div>
                                 <div class="date-month">${month}</div>
                                 <div class="date-year">'${year}</div>
@@ -292,13 +297,10 @@ function createScrollingText() {
     }
 }
 
-document.addEventListener('mousemove', (e) => {
-    mouseXPos = e.clientX;
-    mouseYPos = e.clientY;
-});
-
-document.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     createDynamicElements();
     createScrollingText();
+    switchTab('all'); // Activate 'All' tab immediately after DOM is ready
 });
-switchTab('home');
+
+window.addEventListener('resize', updateSideImage);

@@ -8,6 +8,18 @@
     "path": "assets/asset1.md"
   },
   {
+    "type": "assets",
+    "path": "assets/assets_battlesnippets_20250606.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/assets_camera.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/assets_vroid_20250531.md"
+  },
+  {
     "type": "games",
     "path": "games/game1 - Copie (2).md"
   },
