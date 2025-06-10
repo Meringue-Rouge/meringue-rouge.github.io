@@ -55,7 +55,22 @@ async function loadContent() {
     try {
         console.log(`Loading content for tab: ${currentTab}`);
 
-        const response = await fetch('index.json');
+        // Determine the base URL dynamically
+        const baseUrl = window.location.hostname.includes('github.io') 
+            ? `https://${window.location.hostname}${window.location.pathname === '/' ? '' : window.location.pathname}`
+            : '';
+        
+        // Construct the path to index.json
+        const indexPath = `${baseUrl}/index.json`.replace(/\/+/g, '/'); // Normalize multiple slashes
+        console.log(`Fetching index.json from: ${indexPath}`);
+
+        const response = await fetch(indexPath, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            cache: 'no-cache' // Avoid caching issues during development
+        });
         if (!response.ok) throw new Error(`Failed to load index.json: ${response.status} ${response.statusText}`);
         const files = await response.json();
         console.log('index.json contents:', files);
@@ -63,7 +78,16 @@ async function loadContent() {
         let allItems = [];
         for (const file of files) {
             try {
-                const fileContent = await fetch(file.path)
+                // Construct the full path for each Markdown file
+                const filePath = `${baseUrl}/${file.path}`.replace(/\/+/g, '/');
+                console.log(`Fetching file from: ${filePath}`);
+                const fileContent = await fetch(filePath, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    cache: 'no-cache'
+                })
                     .then(res => {
                         if (!res.ok) throw new Error(`Failed to load ${file.path}: ${res.status} ${res.statusText}`);
                         return res.text();
@@ -78,7 +102,7 @@ async function loadContent() {
                     console.warn(`Skipping ${file.path} due to invalid frontmatter`);
                 }
             } catch (error) {
-                console.error(`Error processing ${file.path}: ${error}`);
+                console.error(`Error processing ${file.path}:`, error);
             }
         }
 
@@ -123,7 +147,9 @@ async function loadContent() {
                 const isLatest = index === 0 && currentTab === 'all';
                 const offset = index * 2;
                 const isUpdated = item.lastUpdated !== (item.date + 'T' + item.time);
-                const thumbnailHtml = item.thumbnail ? `<div class="thumbnail-preview" style="background-image: url('${item.thumbnail}');"></div>` : '';
+                // Use img tag with class for zoom-and-crop via CSS
+                const thumbnailHtml = item.thumbnail ? 
+                    `<img src="${baseUrl}/${item.thumbnail}".replace(/\/+/g, '/')" alt="Thumbnail for ${item.title}" class="thumbnail-preview" style="object-fit: cover; object-position: center; height: 100%;" onerror="this.style.display='none'; console.warn('Failed to load thumbnail: ${item.thumbnail}');">` : '';
                 listHtml += `
                     <li style="transform: translateZ(${5 + offset}px) translateX(${offset}px);">
                         <div class="entry-button ${isLatest ? 'latest-entry' : ''}" data-file="${item.file}" onclick="toggleItem(this, '${item.file}')">
@@ -238,8 +264,23 @@ function toggleItem(button, file) {
         expandedButton.classList.remove('expanded');
     }
 
+    // Determine the base URL dynamically
+    const baseUrl = window.location.hostname.includes('github.io') 
+        ? `https://${window.location.hostname}${window.location.pathname === '/' ? '' : window.location.pathname}`
+        : '';
+    
+    // Construct the full path for the Markdown file
+    const filePath = `${baseUrl}/${file}`.replace(/\/+/g, '/');
+    console.log(`Fetching file for toggle: ${filePath}`);
+
     // Expand the clicked button
-    fetch(file)
+    fetch(filePath, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        cache: 'no-cache'
+    })
         .then(response => {
             if (!response.ok) throw new Error(`Failed to load ${file}: ${response.status} ${response.statusText}`);
             return response.text();
@@ -267,7 +308,7 @@ function toggleItem(button, file) {
                 linksHtml += `<a href="${item.download_link}" target="_blank" class="link-button download-button">Download</a>`;
             }
             
-            const thumbnailHtml = item.thumbnail ? `<img src="${item.thumbnail}" alt="Thumbnail" class="full-thumbnail">` : '';
+            const thumbnailHtml = item.thumbnail ? `<img src="${baseUrl}/${item.thumbnail}".replace(/\/+/g, '/')" alt="Thumbnail for ${item.title}" class="full-thumbnail" onerror="this.style.display='none'; console.warn('Failed to load thumbnail: ${item.thumbnail}');">` : '';
             expandedDiv.innerHTML = `
                 <div class="markdown-frame">
                     ${thumbnailHtml}
@@ -290,7 +331,19 @@ function toggleItem(button, file) {
 
 function loadAbout() {
     console.log('Loading About Me');
-    fetch('about.md')
+    // Determine the base URL dynamically
+    const baseUrl = window.location.hostname.includes('github.io') 
+        ? `https://${window.location.hostname}${window.location.pathname === '/' ? '' : window.location.pathname}`
+        : '';
+    const aboutPath = `${baseUrl}/about.md`.replace(/\/+/g, '/');
+    console.log(`Fetching about.md from: ${aboutPath}`);
+    fetch(aboutPath, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        cache: 'no-cache'
+    })
         .then(response => {
             if (!response.ok) throw new Error(`Failed to load about.md: ${response.status} ${response.statusText}`);
             return response.text();
