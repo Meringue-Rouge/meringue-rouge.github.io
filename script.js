@@ -3,6 +3,7 @@ let dynamicElements = [];
 let mouseXPos = null;
 let mouseYPos = null;
 let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let hoveredButtons = new WeakSet();
 
 function formatDate(dateStr) {
     const date = new Date(dateStr);
@@ -303,16 +304,19 @@ function animateElements() {
 }
 
 function playHoverSound() {
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
     const oscillator1 = audioContext.createOscillator();
     const oscillator2 = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
     oscillator1.type = 'sine';
     oscillator2.type = 'sine';
-    oscillator1.frequency.setValueAtTime(150, audioContext.currentTime); // Low mystical tone
-    oscillator2.frequency.setValueAtTime(180, audioContext.currentTime); // Slight harmonic
+    oscillator1.frequency.setValueAtTime(150, audioContext.currentTime);
+    oscillator2.frequency.setValueAtTime(180, audioContext.currentTime);
     gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.0); // Longer fade for mystical effect
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.0);
 
     oscillator1.connect(gainNode);
     oscillator2.connect(gainNode);
@@ -325,16 +329,19 @@ function playHoverSound() {
 }
 
 function playClickSound() {
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
     const oscillator1 = audioContext.createOscillator();
     const oscillator2 = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
     oscillator1.type = 'sine';
     oscillator2.type = 'sine';
-    oscillator1.frequency.setValueAtTime(120, audioContext.currentTime); // Deeper mystical tone
-    oscillator2.frequency.setValueAtTime(140, audioContext.currentTime); // Subtle harmonic
+    oscillator1.frequency.setValueAtTime(120, audioContext.currentTime);
+    oscillator2.frequency.setValueAtTime(140, audioContext.currentTime);
     gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.5); // Shorter decay
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.5);
 
     oscillator1.connect(gainNode);
     oscillator2.connect(gainNode);
@@ -350,14 +357,17 @@ document.addEventListener('DOMContentLoaded', () => {
     createDynamicElements();
     switchTab('all');
 
-    // Use event delegation on body to capture hover and click events on buttons
+    // Track hovered buttons to play sound only on initial hover
     document.body.addEventListener('mouseover', (e) => {
-        if (e.target.matches('.tab-button, .entry-button, .markdown-frame button')) {
+        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button');
+        if (button && !hoveredButtons.has(button)) {
+            hoveredButtons.add(button);
             playHoverSound();
         }
     });
     document.body.addEventListener('click', (e) => {
-        if (e.target.matches('.tab-button, .entry-button, .markdown-frame button')) {
+        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button');
+        if (button) {
             playClickSound();
         }
     });
