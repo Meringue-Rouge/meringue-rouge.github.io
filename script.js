@@ -51,133 +51,7 @@ function switchTab(tab) {
     loadContent();
 }
 
-async function loadContent() {
-    try {
-        console.log(`Loading content for tab: ${currentTab}`);
 
-        // Determine the base URL dynamically
-        const baseUrl = window.location.hostname.includes('github.io') 
-            ? `https://${window.location.hostname}${window.location.pathname === '/' ? '' : window.location.pathname}`
-            : '';
-        
-        // Construct the path to index.json
-        const indexPath = `${baseUrl}/index.json`.replace(/\/+/g, '/'); // Normalize multiple slashes
-        console.log(`Fetching index.json from: ${indexPath}`);
-
-        const response = await fetch(indexPath, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            cache: 'no-cache' // Avoid caching issues during development
-        });
-        if (!response.ok) throw new Error(`Failed to load index.json: ${response.status} ${response.statusText}`);
-        const files = await response.json();
-        console.log('index.json contents:', files);
-
-        let allItems = [];
-        for (const file of files) {
-            try {
-                // Construct the full path for each Markdown file
-                const filePath = `${baseUrl}/${file.path}`.replace(/\/+/g, '/');
-                console.log(`Fetching file from: ${filePath}`);
-                const fileContent = await fetch(filePath, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'text/plain'
-                    },
-                    cache: 'no-cache'
-                })
-                    .then(res => {
-                        if (!res.ok) throw new Error(`Failed to load ${file.path}: ${res.status} ${res.statusText}`);
-                        return res.text();
-                    });
-                console.log(`Raw content of ${file.path}:`, JSON.stringify(fileContent));
-                const item = parseFrontmatter(fileContent, file.type, file.path);
-                if (item) {
-                    console.log('Parsed item:', item);
-                    item.lastUpdated = item.lastUpdated || item.date + 'T' + item.time;
-                    allItems.push(item);
-                } else {
-                    console.warn(`Skipping ${file.path} due to invalid frontmatter`);
-                }
-            } catch (error) {
-                console.error(`Error processing ${file.path}:`, error);
-            }
-        }
-
-        if (allItems.length === 0) {
-            document.getElementById('content').innerHTML = '<p>No valid items found. Check your Markdown files for correct frontmatter (title, subtitle, date, time, content).</p>';
-            console.error('No valid items loaded; check frontmatter in .md files');
-            return;
-        }
-
-        allItems.sort((a, b) => {
-            const dateA = new Date(a.lastUpdated);
-            const dateB = new Date(b.lastUpdated);
-            if (isNaN(dateA) || isNaN(dateB)) {
-                console.warn(`Invalid lastUpdated in ${a.file} or ${b.file}`);
-                return 0;
-            }
-            return dateB - dateA;
-        });
-
-        let filteredItems = allItems;
-        if (currentTab === 'news') {
-            filteredItems = allItems.filter(item => item.type === 'news');
-        } else if (currentTab === 'assets') {
-            filteredItems = allItems.filter(item => item.type === 'assets');
-        } else if (currentTab === 'games') {
-            filteredItems = allItems.filter(item => item.type === 'games');
-        } else if (currentTab === 'all') {
-            filteredItems = allItems;
-        }
-
-        console.log('Filtered items:', filteredItems);
-
-        let listHtml = `<h2>${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2><ul>`;
-        if (filteredItems.length === 0) {
-            listHtml += `<li>No ${currentTab} items available.</li></ul><div class="list-bottom-space"></div>`;
-        } else {
-            filteredItems.forEach((item, index) => {
-                const tag = item.type === 'news' ? 'News' : item.type === 'assets' ? 'Asset' : item.type === 'about' ? 'About' : 'Game Release';
-                const tagClass = `category-${item.type}`;
-                const subtitleHtml = item.subtitle ? `<div class="subtitle">${item.subtitle}</div>` : '';
-                const { day, month, year } = formatDate(item.lastUpdated);
-                const isLatest = index === 0 && currentTab === 'all';
-                const offset = index * 2;
-                const isUpdated = item.lastUpdated !== (item.date + 'T' + item.time);
-                // Use img tag with class for zoom-and-crop via CSS
-                const thumbnailHtml = item.thumbnail ? 
-                    `<img src="${baseUrl}/${item.thumbnail}".replace(/\/+/g, '/')" alt="Thumbnail for ${item.title}" class="thumbnail-preview" style="object-fit: cover; object-position: center; height: 100%;" onerror="this.style.display='none'; console.warn('Failed to load thumbnail: ${item.thumbnail}');">` : '';
-                listHtml += `
-                    <li style="transform: translateZ(${5 + offset}px) translateX(${offset}px);">
-                        <div class="entry-button ${isLatest ? 'latest-entry' : ''}" data-file="${item.file}" onclick="toggleItem(this, '${item.file}')">
-                            <div class="date-section ${isUpdated ? 'updated' : ''}">
-                                <div class="date-day">${day}</div>
-                                <div class="date-month">${month}</div>
-                                <div class="date-year">'${year}</div>
-                            </div>
-                            <div class="entry-content">
-                                <div class="title">
-                                    <span class="category-tag ${tagClass}">${tag}</span>
-                                    ${item.title}
-                                </div>
-                                ${subtitleHtml}
-                            </div>
-                            ${thumbnailHtml}
-                        </div>
-                        <div class="expanded-content" id="expanded-${item.file.replace(/[\/.]/g, '-')}" style="display: none;"></div>
-                    </li>`;
-            });
-            listHtml += `</ul><div class="list-bottom-space"></div>`;
-        }
-        document.getElementById('content').innerHTML = listHtml;
-    } catch (error) {
-        console.error('Error loading content:', error);
-        document.getElementById('content').innerHTML = '<p>Error loading content. Please check the console for details.</p>';
-    }
-}
 
 function parseFrontmatter(content, type, file) {
     const frontmatterRegex = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]*([\s\S]*)$/;
@@ -244,6 +118,130 @@ function parseFrontmatter(content, type, file) {
     return metadata;
 }
 
+async function loadContent() {
+    try {
+        console.log(`Loading content for tab: ${currentTab}`);
+
+        // Construct base URL for GitHub Pages
+        const baseUrl = window.location.hostname.includes('github.io') 
+            ? `https://${window.location.hostname}${window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/'}`
+            : '';
+        const indexPath = `${baseUrl}index.json`.replace(/\/+/g, '/');
+        console.log(`Fetching index.json from: ${indexPath}`);
+
+        const response = await fetch(indexPath, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            cache: 'no-cache'
+        });
+        if (!response.ok) throw new Error(`Failed to load index.json: ${response.status} ${response.statusText}`);
+        const files = await response.json();
+        console.log('index.json contents:', files);
+
+        let allItems = [];
+        for (const file of files) {
+            try {
+                const filePath = `${baseUrl}${file.path.startsWith('/') ? file.path.slice(1) : file.path}`.replace(/\/+/g, '/');
+                console.log(`Fetching file from: ${filePath}`);
+                const fileContent = await fetch(filePath, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    cache: 'no-cache'
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error(`Failed to load ${file.path}: ${res.status} ${res.statusText}`);
+                        return res.text();
+                    });
+                console.log(`Raw content of ${file.path}:`, JSON.stringify(fileContent));
+                const item = parseFrontmatter(fileContent, file.type, file.path);
+                if (item) {
+                    console.log('Parsed item:', item);
+                    item.lastUpdated = item.lastUpdated || item.date + 'T' + item.time;
+                    allItems.push(item);
+                } else {
+                    console.warn(`Skipping ${file.path} due to invalid frontmatter`);
+                }
+            } catch (error) {
+                console.error(`Error processing ${file.path}:`, error);
+            }
+        }
+        // ... rest of the function remains the same
+        if (allItems.length === 0) {
+            document.getElementById('content').innerHTML = '<p>No valid items found. Check your Markdown files for correct frontmatter (title, subtitle, date, time, content).</p>';
+            console.error('No valid items loaded; check frontmatter in .md files');
+            return;
+        }
+
+        allItems.sort((a, b) => {
+            const dateA = new Date(a.lastUpdated);
+            const dateB = new Date(b.lastUpdated);
+            if (isNaN(dateA) || isNaN(dateB)) {
+                console.warn(`Invalid lastUpdated in ${a.file} or ${b.file}`);
+                return 0;
+            }
+            return dateB - dateA;
+        });
+
+        let filteredItems = allItems;
+        if (currentTab === 'news') {
+            filteredItems = allItems.filter(item => item.type === 'news');
+        } else if (currentTab === 'assets') {
+            filteredItems = allItems.filter(item => item.type === 'assets');
+        } else if (currentTab === 'games') {
+            filteredItems = allItems.filter(item => item.type === 'games');
+        } else if (currentTab === 'all') {
+            filteredItems = allItems;
+        }
+
+        console.log('Filtered items:', filteredItems);
+
+        let listHtml = `<h2>${currentTab.charAt(0).toUpperCase() + currentTab.slice(1)}</h2><ul>`;
+        if (filteredItems.length === 0) {
+            listHtml += `<li>No ${currentTab} items available.</li></ul><div class="list-bottom-space"></div>`;
+        } else {
+            filteredItems.forEach((item, index) => {
+                const tag = item.type === 'news' ? 'News' : item.type === 'assets' ? 'Asset' : item.type === 'about' ? 'About' : 'Game Release';
+                const tagClass = `category-${item.type}`;
+                const subtitleHtml = item.subtitle ? `<div class="subtitle">${item.subtitle}</div>` : '';
+                const { day, month, year } = formatDate(item.lastUpdated);
+                const isLatest = index === 0 && currentTab === 'all';
+                const offset = index * 2;
+                const isUpdated = item.lastUpdated !== (item.date + 'T' + item.time);
+                const thumbnailHtml = item.thumbnail ? 
+                    `<img src="${baseUrl}${item.thumbnail.startsWith('/') ? item.thumbnail.slice(1) : item.thumbnail}".replace(/\/+/g, '/')" alt="Thumbnail for ${item.title}" class="thumbnail-preview" style="object-fit: cover; object-position: center; height: 100%;" onerror="this.style.display='none'; console.warn('Failed to load thumbnail: ${item.thumbnail}');">` : '';
+                listHtml += `
+                    <li style="transform: translateZ(${5 + offset}px) translateX(${offset}px);">
+                        <div class="entry-button ${isLatest ? 'latest-entry' : ''}" data-file="${item.file}" onclick="toggleItem(this, '${item.file}')">
+                            <div class="date-section ${isUpdated ? 'updated' : ''}">
+                                <div class="date-day">${day}</div>
+                                <div class="date-month">${month}</div>
+                                <div class="date-year">'${year}</div>
+                            </div>
+                            <div class="entry-content">
+                                <div class="title">
+                                    <span class="category-tag ${tagClass}">${tag}</span>
+                                    ${item.title}
+                                </div>
+                                ${subtitleHtml}
+                            </div>
+                            ${thumbnailHtml}
+                        </div>
+                        <div class="expanded-content" id="expanded-${item.file.replace(/[\/.]/g, '-')}" style="display: none;"></div>
+                    </li>`;
+            });
+            listHtml += `</ul><div class="list-bottom-space"></div>`;
+        }
+        document.getElementById('content').innerHTML = listHtml;
+    } catch (error) {
+        console.error('Error loading content:', error);
+        document.getElementById('content').innerHTML = '<p>Error loading content. Please check the console for details.</p>';
+    }
+}
+
 function toggleItem(button, file) {
     console.log(`Toggling item: ${file}`);
     const expandedDiv = document.getElementById(`expanded-${file.replace(/[\/.]/g, '-')}`);
@@ -264,16 +262,13 @@ function toggleItem(button, file) {
         expandedButton.classList.remove('expanded');
     }
 
-    // Determine the base URL dynamically
+    // Construct base URL for GitHub Pages
     const baseUrl = window.location.hostname.includes('github.io') 
-        ? `https://${window.location.hostname}${window.location.pathname === '/' ? '' : window.location.pathname}`
+        ? `https://${window.location.hostname}${window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/'}`
         : '';
-    
-    // Construct the full path for the Markdown file
-    const filePath = `${baseUrl}/${file}`.replace(/\/+/g, '/');
+    const filePath = `${baseUrl}${file.startsWith('/') ? file.slice(1) : file}`.replace(/\/+/g, '/');
     console.log(`Fetching file for toggle: ${filePath}`);
 
-    // Expand the clicked button
     fetch(filePath, {
         method: 'GET',
         headers: {
@@ -282,10 +277,12 @@ function toggleItem(button, file) {
         cache: 'no-cache'
     })
         .then(response => {
+            console.log(`Fetch response for ${file}: status=${response.status}, ok=${response.ok}`);
             if (!response.ok) throw new Error(`Failed to load ${file}: ${response.status} ${response.statusText}`);
             return response.text();
         })
         .then(content => {
+            console.log(`Content loaded for ${file}:`, content.substring(0, 100) + '...');
             const item = parseFrontmatter(content, null, file);
             if (!item) throw new Error(`No valid frontmatter in ${file}`);
             const html = marked.parse(item.content);
@@ -308,7 +305,9 @@ function toggleItem(button, file) {
                 linksHtml += `<a href="${item.download_link}" target="_blank" class="link-button download-button">Download</a>`;
             }
             
-            const thumbnailHtml = item.thumbnail ? `<img src="${baseUrl}/${item.thumbnail}".replace(/\/+/g, '/')" alt="Thumbnail for ${item.title}" class="full-thumbnail" onerror="this.style.display='none'; console.warn('Failed to load thumbnail: ${item.thumbnail}');">` : '';
+            const thumbnailHtml = item.thumbnail ? 
+                `<img src="${baseUrl}${item.thumbnail.startsWith('/') ? item.thumbnail.slice(1) : item.thumbnail}".replace(/\/+/g, '/')" alt="Thumbnail for ${item.title}" class="full-thumbnail" onerror="this.style.display='none'; console.warn('Failed to load thumbnail: ${item.thumbnail}');">` 
+                : '';
             expandedDiv.innerHTML = `
                 <div class="markdown-frame">
                     ${thumbnailHtml}
@@ -322,7 +321,7 @@ function toggleItem(button, file) {
         })
         .catch(error => {
             console.error('Error loading item:', error);
-            expandedDiv.innerHTML = '<p>Error loading item.</p>';
+            expandedDiv.innerHTML = '<p>Error loading item. Check console for details.</p>';
             expandedDiv.style.display = 'block';
             button.classList.add('expanded');
             expandedButton = button;
@@ -331,19 +330,7 @@ function toggleItem(button, file) {
 
 function loadAbout() {
     console.log('Loading About Me');
-    // Determine the base URL dynamically
-    const baseUrl = window.location.hostname.includes('github.io') 
-        ? `https://${window.location.hostname}${window.location.pathname === '/' ? '' : window.location.pathname}`
-        : '';
-    const aboutPath = `${baseUrl}/about.md`.replace(/\/+/g, '/');
-    console.log(`Fetching about.md from: ${aboutPath}`);
-    fetch(aboutPath, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        cache: 'no-cache'
-    })
+    fetch('about.md')
         .then(response => {
             if (!response.ok) throw new Error(`Failed to load about.md: ${response.status} ${response.statusText}`);
             return response.text();
