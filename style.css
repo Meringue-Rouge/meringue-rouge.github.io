@@ -63,6 +63,75 @@
     100% { transform: scale(1) translateZ(10px); filter: brightness(1); }
 }
 
+.gacha-overlay {
+    position: fixed;
+    display: none;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    z-index: 1000;
+    font-family: 'Orbitron', sans-serif;
+    color: #ff0000;
+    animation: fadeOut 2s ease-in-out forwards;
+}
+
+.gacha-overlay.active {
+    display: block;
+}
+
+.gacha-overlay .stars {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.gacha-overlay .rarity {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.gacha-overlay .get {
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.gacha-overlay .title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.gacha-overlay .description {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.gacha-overlay.shine {
+    animation: shineEffect 1.5s infinite;
+}
+
+.gacha-overlay.super-rare.shine {
+    animation: shineEffect 1.2s infinite;
+}
+
+.gacha-overlay.ultra-rare.shine {
+    animation: shineEffect 1s infinite;
+}
+
+@keyframes shineEffect {
+    0% { box-shadow: 0 0 10px #fff, 0 0 20px #ff0; }
+    50% { box-shadow: 0 0 20px #fff, 0 0 40px #f0f; }
+    100% { box-shadow: 0 0 10px #fff, 0 0 20px #ff0; }
+}
+
 .header {
     display: flex;
     justify-content: space-between;

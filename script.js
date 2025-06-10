@@ -22,8 +22,19 @@ function updateSideImage() {
     }
 }
 
-function playCharacterClickSound() {
-    const audio = new Audio('character_click.wav'); // Adjust extension if needed (e.g., .wav)
+function playCharacterClickSound(rarity) {
+    let audioFile;
+    switch (rarity) {
+        case 'Ultra Rare':
+            audioFile = 'ultra_rare_click.wav';
+            break;
+        case 'Super Rare':
+            audioFile = 'super_rare_click.wav';
+            break;
+        default:
+            audioFile = 'character_click.wav';
+    }
+    const audio = new Audio(audioFile);
     audio.play().catch(error => console.error('Error playing sound:', error));
 }
 
@@ -362,16 +373,58 @@ document.addEventListener('DOMContentLoaded', () => {
     createDynamicElements();
     switchTab('all');
 
-    // Handle side image click
+    // Handle side image click with gacha system
     const sideImage = document.getElementById('side-image');
+    const overlay = document.getElementById('gacha-overlay');
+    const gachaData = [
+        { id: 1, src: 'images/character_alt_1.png', stars: 1, rarity: 'Common', title: 'Basic Character', description: 'A standard character design.', odds: 0.30 },
+        { id: 2, src: 'images/character_alt_2.png', stars: 2, rarity: 'Uncommon', title: 'Enhanced Character', description: 'A slightly upgraded character.', odds: 0.25 },
+        { id: 3, src: 'images/character_alt_3.png', stars: 3, rarity: 'Rare', title: 'Rare Character', description: 'A rare and unique character design.', odds: 0.30 },
+        { id: 4, src: 'images/character_alt_4.png', stars: 4, rarity: 'Super Rare', title: 'Super Rare Character', description: 'An exceptionally rare character design.', odds: 0.10 },
+        { id: 5, src: 'images/character_alt_5.png', stars: 5, rarity: 'Ultra Rare', title: 'Ultra Rare Character', description: 'The rarest character design imaginable.', odds: 0.05 }
+    ];
+
     sideImage.addEventListener('click', () => {
-        playCharacterClickSound();
         sideImage.classList.add('clicked');
         const originalSrc = sideImage.src;
-        sideImage.src = 'images/character_alt.png'; // Swap to alternate image
+
+        // Weighted random selection based on odds
+        const roll = Math.random();
+        let cumulative = 0;
+        let selectedGacha = gachaData[0];
+        for (let item of gachaData) {
+            cumulative += item.odds;
+            if (roll <= cumulative) {
+                selectedGacha = item;
+                break;
+            }
+        }
+
+        playCharacterClickSound(selectedGacha.rarity);
+
+        sideImage.src = selectedGacha.src;
+        const rect = sideImage.getBoundingClientRect();
+        overlay.style.left = `${rect.left + rect.width * 0.2}px`; // Offset to the right
+        overlay.style.top = `${rect.bottom - rect.height * 0.3}px`; // Lower half
+        overlay.style.width = `${rect.width * 1.2}px`; // 20% wider
+        overlay.style.height = `${rect.height * 0.2}px`; // 20% of image height
+        overlay.innerHTML = `
+            <div class="stars">${'★'.repeat(selectedGacha.stars)}</div>
+            <div class="rarity">${selectedGacha.rarity}</div>
+            <div class="get">GET!</div>
+            <div class="title">${selectedGacha.title}</div>
+            <div class="description">${selectedGacha.description}</div>
+        `;
+        overlay.classList.add('active');
+        if (selectedGacha.rarity === 'Super Rare' || selectedGacha.rarity === 'Ultra Rare') {
+            overlay.classList.add('shine');
+            overlay.classList.add(selectedGacha.rarity.toLowerCase().replace(' ', '-'));
+        }
+
         setTimeout(() => {
-            sideImage.src = originalSrc; // Revert after 2 seconds
+            sideImage.src = originalSrc;
             sideImage.classList.remove('clicked');
+            overlay.classList.remove('active', 'shine', 'super-rare', 'ultra-rare');
         }, 2000);
     });
 
