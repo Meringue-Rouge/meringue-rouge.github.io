@@ -51,10 +51,77 @@ function switchTab(tab) {
     loadContent();
 }
 
+
+function parseFrontmatter(content, type, file) {
+    const frontmatterRegex = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]*([\s\S]*)$/;
+    const match = content.match(frontmatterRegex);
+    if (!match) {
+        console.warn(`No frontmatter found in ${file}. Expected format: ---\\nkey: value\\n---\\ncontent`);
+        return null;
+    }
+
+    const frontmatter = match[1];
+    const bodyContent = match[2].trim();
+    console.log(`Frontmatter for ${file}:`, frontmatter);
+    console.log(`Body content for ${file}:`, bodyContent);
+
+    const lines = frontmatter.split(/[\r\n]+/).filter(line => line.trim());
+    let metadata = { type, file };
+
+    let currentKey = null;
+    let currentValue = [];
+
+    lines.forEach((line, index) => {
+        const keyMatch = line.match(/^(\w+):\s*(.*)$/);
+        if (keyMatch) {
+            if (currentKey && currentValue.length > 0) {
+                metadata[currentKey] = currentValue.join('\n').trim();
+                currentValue = [];
+            }
+            const [, key, value] = keyMatch;
+            currentKey = key;
+            if (value.startsWith('|')) {
+                currentValue = [value.slice(1).trim()];
+            } else {
+                metadata[key] = value.trim();
+                currentKey = null;
+            }
+        } else if (currentKey && line.trim()) {
+            currentValue.push(line.trim());
+        } else {
+            console.warn(`Invalid frontmatter line in ${file} at line ${index + 1}:`, line);
+        }
+    });
+
+    if (currentKey && currentValue.length > 0) {
+        metadata[currentKey] = currentValue.join('\n').trim();
+    }
+
+    if (!metadata.content && bodyContent) {
+        metadata.content = bodyContent;
+    }
+
+    const requiredFields = ['title', 'date', 'time', 'content'];
+    const missingFields = requiredFields.filter(field => !metadata[field]);
+    if (missingFields.length > 0) {
+        console.warn(`Incomplete frontmatter in ${file}. Missing fields:`, missingFields);
+        return null;
+    }
+
+    const dateTime = new Date(`${metadata.date}T${metadata.time}`);
+    if (isNaN(dateTime)) {
+        console.warn(`Invalid date/time format in ${file}: ${metadata.date} ${metadata.time}`);
+        return null;
+    }
+
+    return metadata;
+}
+
 async function loadContent() {
     try {
         console.log(`Loading content for tab: ${currentTab}`);
 
+        // Fetch index.json (this still works from the root of your GitHub Pages site)
         const response = await fetch('index.json');
         if (!response.ok) throw new Error(`Failed to load index.json: ${response.status} ${response.statusText}`);
         const files = await response.json();
@@ -63,9 +130,11 @@ async function loadContent() {
         let allItems = [];
         for (const file of files) {
             try {
-                const fileContent = await fetch(file.path)
+                // Construct the raw GitHub URL for each file
+                const rawUrl = `https://raw.githubusercontent.com/Meringue-Rouge/meringue-rouge.github.io/refs/heads/main/${file.path}`;
+                const fileContent = await fetch(rawUrl)
                     .then(res => {
-                        if (!res.ok) throw new Error(`Failed to load ${file.path}: ${res.status} ${res.statusText}`);
+                        if (!res.ok) throw new Error(`Failed to load ${rawUrl}: ${res.status} ${res.statusText}`);
                         return res.text();
                     });
                 console.log(`Raw content of ${file.path}:`, JSON.stringify(fileContent));
@@ -153,71 +222,6 @@ async function loadContent() {
     }
 }
 
-function parseFrontmatter(content, type, file) {
-    const frontmatterRegex = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]*([\s\S]*)$/;
-    const match = content.match(frontmatterRegex);
-    if (!match) {
-        console.warn(`No frontmatter found in ${file}. Expected format: ---\\nkey: value\\n---\\ncontent`);
-        return null;
-    }
-
-    const frontmatter = match[1];
-    const bodyContent = match[2].trim();
-    console.log(`Frontmatter for ${file}:`, frontmatter);
-    console.log(`Body content for ${file}:`, bodyContent);
-
-    const lines = frontmatter.split(/[\r\n]+/).filter(line => line.trim());
-    let metadata = { type, file };
-
-    let currentKey = null;
-    let currentValue = [];
-
-    lines.forEach((line, index) => {
-        const keyMatch = line.match(/^(\w+):\s*(.*)$/);
-        if (keyMatch) {
-            if (currentKey && currentValue.length > 0) {
-                metadata[currentKey] = currentValue.join('\n').trim();
-                currentValue = [];
-            }
-            const [, key, value] = keyMatch;
-            currentKey = key;
-            if (value.startsWith('|')) {
-                currentValue = [value.slice(1).trim()];
-            } else {
-                metadata[key] = value.trim();
-                currentKey = null;
-            }
-        } else if (currentKey && line.trim()) {
-            currentValue.push(line.trim());
-        } else {
-            console.warn(`Invalid frontmatter line in ${file} at line ${index + 1}:`, line);
-        }
-    });
-
-    if (currentKey && currentValue.length > 0) {
-        metadata[currentKey] = currentValue.join('\n').trim();
-    }
-
-    if (!metadata.content && bodyContent) {
-        metadata.content = bodyContent;
-    }
-
-    const requiredFields = ['title', 'date', 'time', 'content'];
-    const missingFields = requiredFields.filter(field => !metadata[field]);
-    if (missingFields.length > 0) {
-        console.warn(`Incomplete frontmatter in ${file}. Missing fields:`, missingFields);
-        return null;
-    }
-
-    const dateTime = new Date(`${metadata.date}T${metadata.time}`);
-    if (isNaN(dateTime)) {
-        console.warn(`Invalid date/time format in ${file}: ${metadata.date} ${metadata.time}`);
-        return null;
-    }
-
-    return metadata;
-}
-
 function toggleItem(button, file) {
     console.log(`Toggling item: ${file}`);
     const expandedDiv = document.getElementById(`expanded-${file.replace(/[\/.]/g, '-')}`);
@@ -238,10 +242,11 @@ function toggleItem(button, file) {
         expandedButton.classList.remove('expanded');
     }
 
-    // Expand the clicked button
-    fetch(file)
+    // Construct the raw GitHub URL for the file
+    const rawUrl = `https://raw.githubusercontent.com/Meringue-Rouge/meringue-rouge.github.io/refs/heads/main/${file}`;
+    fetch(rawUrl)
         .then(response => {
-            if (!response.ok) throw new Error(`Failed to load ${file}: ${response.status} ${response.statusText}`);
+            if (!response.ok) throw new Error(`Failed to load ${rawUrl}: ${response.status} ${response.statusText}`);
             return response.text();
         })
         .then(content => {
@@ -290,7 +295,9 @@ function toggleItem(button, file) {
 
 function loadAbout() {
     console.log('Loading About Me');
-    fetch('about.md')
+    // Update the URL for about.md to use the raw GitHub path
+    const rawUrl = 'https://raw.githubusercontent.com/Meringue-Rouge/meringue-rouge.github.io/refs/heads/main/about.md';
+    fetch(rawUrl)
         .then(response => {
             if (!response.ok) throw new Error(`Failed to load about.md: ${response.status} ${response.statusText}`);
             return response.text();
