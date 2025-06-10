@@ -5,7 +5,23 @@
   },
   {
     "type": "news",
+    "path": "news/devlog-1.md"
+  },
+  {
+    "type": "news",
     "path": "news/devlog-2.md"
+  },
+  {
+    "type": "news",
+    "path": "news/pso2-website.md"
+  },
+  {
+    "type": "news",
+    "path": "news/pso2-youtube.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/bakin-attack-priorities.md"
   },
   {
     "type": "assets",
@@ -13,7 +29,11 @@
   },
   {
     "type": "assets",
-    "path": "assets/battle-system-code-snippets.md"
+    "path": "assets/bakin-triple-cameras.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/ecrazeus_source_code.md"
   },
   {
     "type": "assets",
@@ -22,6 +42,26 @@
   {
     "type": "assets",
     "path": "assets/html-advice-windows.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/vrm-physics.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/vrm-spacing-anim.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/vrm_facials_bakin_preset.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/vrm_physics_bakin_preset.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/vrm_tutorial.md"
   },
   {
     "type": "assets",
