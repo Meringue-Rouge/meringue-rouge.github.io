@@ -64,7 +64,7 @@ async function loadContent() {
             try {
                 const fileContent = await fetch(file.path)
                     .then(res => {
-                        if (!res.ok) throw new Error(`Failed to load ${file.path}: ${response.status} ${response.statusText}`);
+                        if (!res.ok) throw new Error(`Failed to load ${file.path}: ${res.status} ${res.statusText}`);
                         return res.text();
                     });
                 console.log(`Raw content of ${file.path}:`, JSON.stringify(fileContent));
@@ -150,27 +150,61 @@ async function loadContent() {
 }
 
 function parseFrontmatter(content, type, file) {
-    const frontmatterRegex = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]*/;
+    // Match frontmatter, capturing content after the closing ---
+    const frontmatterRegex = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]*([\s\S]*)$/;
     const match = content.match(frontmatterRegex);
     if (!match) {
-        console.warn(`No frontmatter found in ${file}. Expected format: ---\\nkey: value\\n---`);
+        console.warn(`No frontmatter found in ${file}. Expected format: ---\\nkey: value\\n---\\ncontent`);
         return null;
     }
 
     const frontmatter = match[1];
+    const bodyContent = match[2].trim(); // Capture content after frontmatter
     console.log(`Frontmatter for ${file}:`, frontmatter);
+    console.log(`Body content for ${file}:`, bodyContent);
+
+    // Split frontmatter into lines and parse
     const lines = frontmatter.split(/[\r\n]+/).filter(line => line.trim());
     let metadata = { type, file };
 
+    let currentKey = null;
+    let currentValue = [];
+
     lines.forEach((line, index) => {
-        const match = line.match(/^(\w+):\s*(.+)$/);
-        if (match) {
-            const [, key, value] = match;
-            metadata[key] = value.trim();
+        // Check if line starts with a key
+        const keyMatch = line.match(/^(\w+):\s*(.*)$/);
+        if (keyMatch) {
+            // Save previous multi-line value if exists
+            if (currentKey && currentValue.length > 0) {
+                metadata[currentKey] = currentValue.join('\n').trim();
+                currentValue = [];
+            }
+            const [, key, value] = keyMatch;
+            currentKey = key;
+            if (value.startsWith('|')) {
+                // Start of multi-line content
+                currentValue = [value.slice(1).trim()];
+            } else {
+                metadata[key] = value.trim();
+                currentKey = null;
+            }
+        } else if (currentKey && line.trim()) {
+            // Continuation of multi-line content
+            currentValue.push(line.trim());
         } else {
             console.warn(`Invalid frontmatter line in ${file} at line ${index + 1}:`, line);
         }
     });
+
+    // Save the last multi-line value
+    if (currentKey && currentValue.length > 0) {
+        metadata[currentKey] = currentValue.join('\n').trim();
+    }
+
+    // Use body content if no multi-line content field is defined
+    if (!metadata.content && bodyContent) {
+        metadata.content = bodyContent;
+    }
 
     const requiredFields = ['title', 'date', 'time', 'content'];
     const missingFields = requiredFields.filter(field => !metadata[field]);
@@ -196,19 +230,9 @@ function loadItem(file) {
             return response.text();
         })
         .then(content => {
-            const match = content.match(/^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]*/);
-            if (!match) throw new Error(`No frontmatter in ${file}`);
-            const frontmatter = match[1];
-            const lines = frontmatter.split(/[\r\n]+/).filter(line => line.trim());
-            let metadata = {};
-            lines.forEach(line => {
-                const match = line.match(/^(\w+):\s*(.+)$/);
-                if (match) {
-                    const [, key, value] = match;
-                    metadata[key] = value.trim();
-                }
-            });
-            const html = marked.parse(metadata.content);
+            const item = parseFrontmatter(content, null, file);
+            if (!item) throw new Error(`No valid frontmatter in ${file}`);
+            const html = marked.parse(item.content);
             document.getElementById('content').innerHTML = `<div class="markdown-frame"><button onclick="switchTab('${currentTab}')"><i class="fas fa-arrow-left"></i> Return to List</button><br>${html}</div>`;
             playClickSound();
         })
@@ -416,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="description">${selectedGacha.description}</div>
         `;
         overlay.classList.add('active');
-        if (selectedGacha.rarity === 'Super Rare' || selectedGacha.rarity === 'Ultra Rare') {
+        if (selectedGacha.rarity === 'Mega Rare' || selectedGacha.rarity === 'Giga Rare') {
             overlay.classList.add('shine');
             overlay.classList.add(selectedGacha.rarity.toLowerCase().replace(' ', '-'));
         }
@@ -424,7 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             sideImage.src = originalSrc;
             sideImage.classList.remove('clicked');
-            overlay.classList.remove('active', 'shine', 'super-rare', 'ultra-rare');
+            overlay.classList.remove('active', 'shine', 'mega-rare', 'giga-rare');
         }, 2000);
     });
 

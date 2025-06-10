@@ -5,42 +5,50 @@
   },
   {
     "type": "news",
-    "path": "news/news1.md"
+    "path": "news/devlog-2.md"
   },
   {
     "type": "assets",
-    "path": "assets/asset1.md"
+    "path": "assets/bakin-model-exporter-2.0.md"
   },
   {
     "type": "assets",
-    "path": "assets/assets_battlesnippets_20250606.md"
+    "path": "assets/battle-system-code-snippets.md"
   },
   {
     "type": "assets",
-    "path": "assets/assets_camera.md"
+    "path": "assets/Enemy-Spawner-Chase-AI.md"
   },
   {
     "type": "assets",
-    "path": "assets/assets_vroid_20250531.md"
+    "path": "assets/html-advice-windows.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/vroid-for-bakin-v6.0.0.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/vroid-normal-map-generator.md"
   },
   {
     "type": "games",
-    "path": "games/game1 - Copie (2).md"
+    "path": "games/deredressalice.md"
   },
   {
     "type": "games",
-    "path": "games/game1 - Copie (3).md"
+    "path": "games/ecrazeus.md"
   },
   {
     "type": "games",
-    "path": "games/game1 - Copie (4).md"
+    "path": "games/hegemonepass.md"
   },
   {
     "type": "games",
-    "path": "games/game1 - Copie.md"
+    "path": "games/isekai_evictors.md"
   },
   {
     "type": "games",
-    "path": "games/game1.md"
+    "path": "games/sellingsummer.md"
   }
 ]
