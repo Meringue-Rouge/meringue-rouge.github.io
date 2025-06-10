@@ -107,19 +107,19 @@
     gap: 10px;
     transition: transform 0.3s ease;
     box-shadow: 0 3px 10px rgba(255, 0, 0, 0.1);
-    backdrop-filter: blur(5px); /* Glass effect */
+    backdrop-filter: blur(5px);
     transform: translateZ(5px);
 }
 
 .social-icons a {
-    color: #ff0000; /* Red by default */
+    color: #ff0000;
     font-size: 24px;
     margin: 0;
     transition: color 0.3s ease;
 }
 
 .social-icons a:hover {
-    color: #ff3333; /* Slightly darker red on hover */
+    color: #ff3333;
 }
 
 .right-panel {
@@ -141,7 +141,7 @@
 .tabs span {
     font-size: 16px;
     color: #ff0000;
-    margin-left: 20px; /* Increased whitespace on the left */
+    margin-left: 20px;
     margin-right: 10px;
     font-weight: bold;
 }
@@ -169,7 +169,7 @@
 }
 
 .tab-button:hover {
-    color: #fff; /* White text on hover */
+    color: #fff;
 }
 
 .tab-button:hover::before {
@@ -225,12 +225,12 @@ li {
 }
 
 .entry-button:hover {
-    color: #fff; /* White text on hover for all text inside */
+    color: #fff;
 }
 
 .entry-button:hover .title,
 .entry-button:hover .subtitle {
-    color: #fff; /* Ensure title and subtitle change to white */
+    color: #fff;
 }
 
 .entry-button:hover::before {
@@ -285,7 +285,7 @@ li {
     left: 2px;
     right: 2px;
     bottom: 2px;
-    border: 1px dashed #add8e6; /* Light blue accent for updated */
+    border: 1px dashed #add8e6;
     border-radius: 0;
     z-index: -1;
 }
@@ -348,19 +348,37 @@ li {
     font-size: 12px;
     box-shadow: none;
     transform: translateZ(5px);
-    color: #000000;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .category-news {
-    background: #ff0000;
+    background: #ff4040; /* Vibrant red */
+}
+.category-news::before {
+    content: "\f1ea"; /* Font Awesome newspaper icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
 }
 
 .category-assets {
-    background: #00ff00;
+    background: #00e0c0; /* Vibrant teal */
+}
+.category-assets::before {
+    content: "\f1c5"; /* Font Awesome file icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
 }
 
 .category-games {
-    background: #0000ff;
+    background: #00aaff; /* Vibrant blue */
+}
+.category-games::before {
+    content: "\f11b"; /* Font Awesome gamepad icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
 }
 
 @media (max-width: 768px) {
@@ -428,7 +446,7 @@ li {
         width: 100%;
     }
     .tabs span {
-        margin-left: 15px; /* Adjusted whitespace on mobile */
+        margin-left: 15px;
         margin-right: 5px;
         font-size: 14px;
     }

@@ -2,6 +2,7 @@ let currentTab = 'all'; // Default to 'all' tab
 let dynamicElements = [];
 let mouseXPos = null;
 let mouseYPos = null;
+let audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 function formatDate(dateStr) {
     const date = new Date(dateStr);
@@ -28,6 +29,7 @@ function switchTab(tab) {
     currentTab = tab;
     document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
     document.querySelector(`.tab-button[onclick="switchTab('${tab}')"]`).classList.add('active');
+    playClickSound();
     loadContent();
 }
 
@@ -52,7 +54,6 @@ async function loadContent() {
                 const item = parseFrontmatter(fileContent, file.type, file.path);
                 if (item) {
                     console.log('Parsed item:', item);
-                    // Default last updated to publish date if not present
                     item.lastUpdated = item.lastUpdated || item.date + 'T' + item.time;
                     allItems.push(item);
                 } else {
@@ -87,7 +88,7 @@ async function loadContent() {
         } else if (currentTab === 'games') {
             filteredItems = allItems.filter(item => item.type === 'games');
         } else if (currentTab === 'all') {
-            filteredItems = allItems; // Show all items for 'All' tab
+            filteredItems = allItems;
         }
 
         console.log('Filtered items:', filteredItems);
@@ -97,7 +98,7 @@ async function loadContent() {
             listHtml += `<li>No ${currentTab} items available.</li></ul><div class="list-bottom-space"></div>`;
         } else {
             filteredItems.forEach((item, index) => {
-                const tag = item.type === 'news' ? 'News' : item.type === 'assets' ? 'Asset' : 'Game Release';
+                const tag = item.type === 'news' ? 'News' : item.type === 'assets' ? 'Asset' : item.type === 'about' ? 'About' : 'Game Release';
                 const tagClass = `category-${item.type}`;
                 const subtitleHtml = item.subtitle ? `<div class="subtitle">${item.subtitle}</div>` : '';
                 const { day, month, year } = formatDate(item.lastUpdated);
@@ -192,6 +193,7 @@ function loadItem(file) {
             });
             const html = marked.parse(metadata.content);
             document.getElementById('content').innerHTML = `<div class="markdown-frame"><button onclick="switchTab('${currentTab}')"><i class="fas fa-arrow-left"></i> Return to List</button><br>${html}</div>`;
+            playClickSound();
         })
         .catch(error => {
             console.error('Error loading item:', error);
@@ -209,6 +211,7 @@ function loadAbout() {
         .then(content => {
             const html = marked.parse(content);
             document.getElementById('content').innerHTML = `<div class="markdown-frame"><button onclick="switchTab('${currentTab}')"><i class="fas fa-arrow-left"></i> Return to List</button><br>${html}</div>`;
+            playClickSound();
         })
         .catch(error => {
             console.error('Error loading about.md:', error);
@@ -299,9 +302,65 @@ function animateElements() {
     update();
 }
 
+function playHoverSound() {
+    const oscillator1 = audioContext.createOscillator();
+    const oscillator2 = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator1.type = 'sine';
+    oscillator2.type = 'sine';
+    oscillator1.frequency.setValueAtTime(150, audioContext.currentTime); // Low mystical tone
+    oscillator2.frequency.setValueAtTime(180, audioContext.currentTime); // Slight harmonic
+    gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.0); // Longer fade for mystical effect
+
+    oscillator1.connect(gainNode);
+    oscillator2.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator1.start();
+    oscillator2.start();
+    oscillator1.stop(audioContext.currentTime + 1.0);
+    oscillator2.stop(audioContext.currentTime + 1.0);
+}
+
+function playClickSound() {
+    const oscillator1 = audioContext.createOscillator();
+    const oscillator2 = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator1.type = 'sine';
+    oscillator2.type = 'sine';
+    oscillator1.frequency.setValueAtTime(120, audioContext.currentTime); // Deeper mystical tone
+    oscillator2.frequency.setValueAtTime(140, audioContext.currentTime); // Subtle harmonic
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.5); // Shorter decay
+
+    oscillator1.connect(gainNode);
+    oscillator2.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator1.start();
+    oscillator2.start();
+    oscillator1.stop(audioContext.currentTime + 0.5);
+    oscillator2.stop(audioContext.currentTime + 0.5);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     createDynamicElements();
-    switchTab('all'); // Activate 'All' tab immediately after DOM is ready
+    switchTab('all');
+
+    // Use event delegation on body to capture hover and click events on buttons
+    document.body.addEventListener('mouseover', (e) => {
+        if (e.target.matches('.tab-button, .entry-button, .markdown-frame button')) {
+            playHoverSound();
+        }
+    });
+    document.body.addEventListener('click', (e) => {
+        if (e.target.matches('.tab-button, .entry-button, .markdown-frame button')) {
+            playClickSound();
+        }
+    });
 });
 
 window.addEventListener('resize', updateSideImage);
