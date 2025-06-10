@@ -22,6 +22,11 @@ function updateSideImage() {
     }
 }
 
+function playCharacterClickSound() {
+    const audio = new Audio('character_click.wav'); // Adjust extension if needed (e.g., .wav)
+    audio.play().catch(error => console.error('Error playing sound:', error));
+}
+
 window.addEventListener('load', updateSideImage);
 window.addEventListener('resize', updateSideImage);
 
@@ -357,16 +362,29 @@ document.addEventListener('DOMContentLoaded', () => {
     createDynamicElements();
     switchTab('all');
 
+    // Handle side image click
+    const sideImage = document.getElementById('side-image');
+    sideImage.addEventListener('click', () => {
+        playCharacterClickSound();
+        sideImage.classList.add('clicked');
+        const originalSrc = sideImage.src;
+        sideImage.src = 'images/character_alt.png'; // Swap to alternate image
+        setTimeout(() => {
+            sideImage.src = originalSrc; // Revert after 2 seconds
+            sideImage.classList.remove('clicked');
+        }, 2000);
+    });
+
     // Track hovered buttons to play sound only on initial hover
     document.body.addEventListener('mouseover', (e) => {
-        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button');
+        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button, .social-button');
         if (button && !hoveredButtons.has(button)) {
             hoveredButtons.add(button);
             playHoverSound();
         }
     });
     document.body.addEventListener('click', (e) => {
-        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button');
+        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button, .social-button');
         if (button) {
             playClickSound();
         }
