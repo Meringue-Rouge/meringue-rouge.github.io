@@ -1,5 +1,9 @@
 [
   {
+    "type": "about",
+    "path": "about.md"
+  },
+  {
     "type": "news",
     "path": "news/news1.md"
   },

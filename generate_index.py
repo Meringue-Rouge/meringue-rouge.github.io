@@ -9,6 +9,14 @@ def generate_index():
     ]
     index = []
 
+    # Check for about.md in the root directory
+    if os.path.exists('about.md') and os.path.isfile('about.md'):
+        index.append({
+            'type': 'about',
+            'path': 'about.md'
+        })
+
+    # Scan directories for .md files
     for dir_info in directories:
         dir_path = dir_info['path']
         if os.path.exists(dir_path):

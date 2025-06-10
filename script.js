@@ -191,12 +191,28 @@ function loadItem(file) {
                 }
             });
             const html = marked.parse(metadata.content);
-            const contentHtml = `<div class="markdown-frame"><button onclick="switchTab('${currentTab}')">Back to List</button><br>${html}</div>`;
-            document.getElementById('content').innerHTML = contentHtml;
+            document.getElementById('content').innerHTML = `<div class="markdown-frame"><button onclick="switchTab('${currentTab}')"><i class="fas fa-arrow-left"></i> Return to List</button><br>${html}</div>`;
         })
         .catch(error => {
             console.error('Error loading item:', error);
             document.getElementById('content').innerHTML = '<p>Error loading item.</p>';
+        });
+}
+
+function loadAbout() {
+    console.log('Loading About Me');
+    fetch('about.md')
+        .then(response => {
+            if (!response.ok) throw new Error(`Failed to load about.md: ${response.status} ${response.statusText}`);
+            return response.text();
+        })
+        .then(content => {
+            const html = marked.parse(content);
+            document.getElementById('content').innerHTML = `<div class="markdown-frame"><button onclick="switchTab('${currentTab}')"><i class="fas fa-arrow-left"></i> Return to List</button><br>${html}</div>`;
+        })
+        .catch(error => {
+            console.error('Error loading about.md:', error);
+            document.getElementById('content').innerHTML = '<p>Error loading About Me. Please check the console for details.</p>';
         });
 }
 
@@ -283,23 +299,8 @@ function animateElements() {
     update();
 }
 
-function createScrollingText() {
-    const container = document.createElement('div');
-    container.className = 'scrolling-text-container';
-    document.body.appendChild(container);
-
-    for (let i = 0; i < 3; i++) {
-        const text = document.createElement('div');
-        text.className = 'scrolling-text';
-        text.textContent = 'MERINGUE ROUGE'.padEnd(20, ' ');
-        text.style.top = `${i * 40}px`;
-        container.appendChild(text);
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     createDynamicElements();
-    createScrollingText();
     switchTab('all'); // Activate 'All' tab immediately after DOM is ready
 });
 
