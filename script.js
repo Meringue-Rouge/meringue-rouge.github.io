@@ -124,7 +124,7 @@ async function loadContent() {
 
         // Construct base URL for GitHub Pages
         const baseUrl = window.location.hostname.includes('github.io') 
-            ? `https://${window.location.hostname}${window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/'}`
+            ? `https://${window.location.hostname}${window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/'}` 
             : '';
         const indexPath = `${baseUrl}index.json`.replace(/\/+/g, '/');
         console.log(`Fetching index.json from: ${indexPath}`);
@@ -136,7 +136,11 @@ async function loadContent() {
             },
             cache: 'no-cache'
         });
-        if (!response.ok) throw new Error(`Failed to load index.json: ${response.status} ${response.statusText}`);
+        console.log(`Fetch response for index.json: status=${response.status}, ok=${response.ok}`);
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to load index.json: ${response.status} ${response.statusText}\nResponse: ${errorText.substring(0, 100)}...`);
+        }
         const files = await response.json();
         console.log('index.json contents:', files);
 
@@ -153,10 +157,11 @@ async function loadContent() {
                     cache: 'no-cache'
                 })
                     .then(res => {
+                        console.log(`Fetch response for ${file.path}: status=${res.status}, ok=${res.ok}`);
                         if (!res.ok) throw new Error(`Failed to load ${file.path}: ${res.status} ${res.statusText}`);
                         return res.text();
                     });
-                console.log(`Raw content of ${file.path}:`, JSON.stringify(fileContent));
+                console.log(`Raw content of ${file.path}:`, JSON.stringify(fileContent.substring(0, 100) + '...'));
                 const item = parseFrontmatter(fileContent, file.type, file.path);
                 if (item) {
                     console.log('Parsed item:', item);
@@ -169,7 +174,6 @@ async function loadContent() {
                 console.error(`Error processing ${file.path}:`, error);
             }
         }
-        // ... rest of the function remains the same
         if (allItems.length === 0) {
             document.getElementById('content').innerHTML = '<p>No valid items found. Check your Markdown files for correct frontmatter (title, subtitle, date, time, content).</p>';
             console.error('No valid items loaded; check frontmatter in .md files');
@@ -278,7 +282,10 @@ function toggleItem(button, file) {
     })
         .then(response => {
             console.log(`Fetch response for ${file}: status=${response.status}, ok=${response.ok}`);
-            if (!response.ok) throw new Error(`Failed to load ${file}: ${response.status} ${response.statusText}`);
+            if (!response.ok) {
+                const errorText = response.text();
+                throw new Error(`Failed to load ${file}: ${response.status} ${response.statusText}\nResponse: ${errorText.substring(0, 100)}...`);
+            }
             return response.text();
         })
         .then(content => {
