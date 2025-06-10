@@ -4,6 +4,7 @@ let mouseXPos = null;
 let mouseYPos = null;
 let audioContext = new (window.AudioContext || window.webkitAudioContext)();
 let hoveredButtons = new WeakSet();
+let expandedButton = null; // Track the currently expanded button
 
 function formatDate(dateStr) {
     const date = new Date(dateStr);
@@ -124,7 +125,7 @@ async function loadContent() {
                 const isUpdated = item.lastUpdated !== (item.date + 'T' + item.time);
                 listHtml += `
                     <li style="transform: translateZ(${5 + offset}px) translateX(${offset}px);">
-                        <div class="entry-button ${isLatest ? 'latest-entry' : ''}" onclick="loadItem('${item.file}')">
+                        <div class="entry-button ${isLatest ? 'latest-entry' : ''}" data-file="${item.file}" onclick="toggleItem(this, '${item.file}')">
                             <div class="date-section ${isUpdated ? 'updated' : ''}">
                                 <div class="date-day">${day}</div>
                                 <div class="date-month">${month}</div>
@@ -138,6 +139,7 @@ async function loadContent() {
                                 ${subtitleHtml}
                             </div>
                         </div>
+                        <div class="expanded-content" id="expanded-${item.file.replace(/[\/.]/g, '-')}" style="display: none;"></div>
                     </li>`;
             });
             listHtml += `</ul><div class="list-bottom-space"></div>`;
@@ -150,7 +152,6 @@ async function loadContent() {
 }
 
 function parseFrontmatter(content, type, file) {
-    // Match frontmatter, capturing content after the closing ---
     const frontmatterRegex = /^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]*([\s\S]*)$/;
     const match = content.match(frontmatterRegex);
     if (!match) {
@@ -159,11 +160,10 @@ function parseFrontmatter(content, type, file) {
     }
 
     const frontmatter = match[1];
-    const bodyContent = match[2].trim(); // Capture content after frontmatter
+    const bodyContent = match[2].trim();
     console.log(`Frontmatter for ${file}:`, frontmatter);
     console.log(`Body content for ${file}:`, bodyContent);
 
-    // Split frontmatter into lines and parse
     const lines = frontmatter.split(/[\r\n]+/).filter(line => line.trim());
     let metadata = { type, file };
 
@@ -171,10 +171,8 @@ function parseFrontmatter(content, type, file) {
     let currentValue = [];
 
     lines.forEach((line, index) => {
-        // Check if line starts with a key
         const keyMatch = line.match(/^(\w+):\s*(.*)$/);
         if (keyMatch) {
-            // Save previous multi-line value if exists
             if (currentKey && currentValue.length > 0) {
                 metadata[currentKey] = currentValue.join('\n').trim();
                 currentValue = [];
@@ -182,26 +180,22 @@ function parseFrontmatter(content, type, file) {
             const [, key, value] = keyMatch;
             currentKey = key;
             if (value.startsWith('|')) {
-                // Start of multi-line content
                 currentValue = [value.slice(1).trim()];
             } else {
                 metadata[key] = value.trim();
                 currentKey = null;
             }
         } else if (currentKey && line.trim()) {
-            // Continuation of multi-line content
             currentValue.push(line.trim());
         } else {
             console.warn(`Invalid frontmatter line in ${file} at line ${index + 1}:`, line);
         }
     });
 
-    // Save the last multi-line value
     if (currentKey && currentValue.length > 0) {
         metadata[currentKey] = currentValue.join('\n').trim();
     }
 
-    // Use body content if no multi-line content field is defined
     if (!metadata.content && bodyContent) {
         metadata.content = bodyContent;
     }
@@ -222,8 +216,27 @@ function parseFrontmatter(content, type, file) {
     return metadata;
 }
 
-function loadItem(file) {
-    console.log(`Loading item: ${file}`);
+function toggleItem(button, file) {
+    console.log(`Toggling item: ${file}`);
+    const expandedDiv = document.getElementById(`expanded-${file.replace(/[\/.]/g, '-')}`);
+    
+    // If this button is already expanded, collapse it
+    if (expandedButton === button) {
+        expandedDiv.style.display = 'none';
+        button.classList.remove('expanded');
+        expandedButton = null;
+        playClickSound();
+        return;
+    }
+
+    // Collapse any previously expanded button
+    if (expandedButton) {
+        const prevExpandedDiv = document.getElementById(`expanded-${expandedButton.getAttribute('data-file').replace(/[\/.]/g, '-')}`);
+        prevExpandedDiv.style.display = 'none';
+        expandedButton.classList.remove('expanded');
+    }
+
+    // Expand the clicked button
     fetch(file)
         .then(response => {
             if (!response.ok) throw new Error(`Failed to load ${file}: ${response.status} ${response.statusText}`);
@@ -233,12 +246,38 @@ function loadItem(file) {
             const item = parseFrontmatter(content, null, file);
             if (!item) throw new Error(`No valid frontmatter in ${file}`);
             const html = marked.parse(item.content);
-            document.getElementById('content').innerHTML = `<div class="markdown-frame"><button onclick="switchTab('${currentTab}')"><i class="fas fa-arrow-left"></i> Return to List</button><br>${html}</div>`;
+            
+            // Create buttons for links if they exist
+            let linksHtml = '';
+            if (item.itch_link) {
+                linksHtml += `<a href="${item.itch_link}" target="_blank" class="link-button itch-button">Itch.io</a>`;
+            }
+            if (item.github_link) {
+                linksHtml += `<a href="${item.github_link}" target="_blank" class="link-button github-button">GitHub</a>`;
+            }
+            if (item.steam_workshop_link) {
+                linksHtml += `<a href="${item.steam_workshop_link}" target="_blank" class="link-button steam-button">Steam Workshop</a>`;
+            }
+            if (item.other_link) {
+                linksHtml += `<a href="${item.other_link}" target="_blank" class="link-button other-button">Website</a>`;
+            }
+            
+            expandedDiv.innerHTML = `
+                <div class="markdown-frame">
+                    ${html}
+                    ${linksHtml ? '<div class="link-buttons">' + linksHtml + '</div>' : ''}
+                </div>`;
+            expandedDiv.style.display = 'block';
+            button.classList.add('expanded');
+            expandedButton = button;
             playClickSound();
         })
         .catch(error => {
             console.error('Error loading item:', error);
-            document.getElementById('content').innerHTML = '<p>Error loading item.</p>';
+            expandedDiv.innerHTML = '<p>Error loading item.</p>';
+            expandedDiv.style.display = 'block';
+            button.classList.add('expanded');
+            expandedButton = button;
         });
 }
 
@@ -454,14 +493,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Track hovered buttons to play sound only on initial hover
     document.body.addEventListener('mouseover', (e) => {
-        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button, .social-button');
+        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button, .social-button, .link-button');
         if (button && !hoveredButtons.has(button)) {
             hoveredButtons.add(button);
             playHoverSound();
         }
     });
     document.body.addEventListener('click', (e) => {
-        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button, .social-button');
+        const button = e.target.closest('.tab-button, .entry-button, .markdown-frame button, .about-button, .social-button, .link-button');
         if (button) {
             playClickSound();
         }

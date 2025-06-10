@@ -1,9 +1,9 @@
-# About Me
+Hello! I’m Meringue Rouge, formerly known as ingenoire (and ingenoireP on X)!
 
-Hello! I’m Meringue Rouge, a passionate creator in the digital realm. Born from a love of vibrant aesthetics and innovative ideas, I’ve been crafting content since 2022. My work spans news, assets, and games, all infused with a unique Y2K-inspired flair.
+Currently, my focus has returned to game development, after a hiatus in 2020. You can thank PSO2 for that long hiatus.
 
-## My Journey
-I started with simple designs, experimenting with colors and shapes, and gradually built a portfolio that reflects my evolving style. Today, I’m excited to share my creations with you through this site.
+## What's this site about?
+This site acts as a all-in-one repository for all the assets, add-ons, extensions, game releases, and more, regarding the RPG Developer Bakin engine.
 
 ## What I Do
 - **News**: Keeping you updated with the latest in my world.
@@ -11,3 +11,9 @@ I started with simple designs, experimenting with colors and shapes, and gradual
 - **Games**: Developing fun, retro-futuristic experiences.
 
 Feel free to explore my work or connect with me on social media!
+
+[![Button Example]][Link]
+<!----------------------------------------------------------------------------->
+[Link]: # 'Link with example title.'
+<!---------------------------------[ Buttons ]--------------------------------->
+[Button Example]: https://img.shields.io/badge/Title-37a779?style=for-the-badge

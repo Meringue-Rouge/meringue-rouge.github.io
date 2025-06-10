@@ -4,8 +4,10 @@ subtitle: Size-Shifting Beat-Them-Up! (Prototype)
 date: 2019-07-31
 time: 00:00
 type: games
+itch_link: https://meringue-rouge.itch.io/dere-dress-alice
+github_link: https://github.com/meringue-rouge/dere-dress-alice
+steam_workshop_link: https://steamcommunity.com/sharedfiles/filedetails/?id=123456789
+other_link: https://example.com/dere-dress-alice
 content: |
   Dere Dress Alice is a prototype beat-em-up game where you play as Alice, who can transform between big and small sizes to fight enemies. The game was created for the Fragment Jam in 2019.
-
-  [Play Now](https://meringue-rouge.itch.io/dere-dress-alice)
 ---
