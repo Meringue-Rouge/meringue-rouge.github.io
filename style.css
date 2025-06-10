@@ -588,6 +588,10 @@ li {
     background: #666; /* Generic gray */
 }
 
+.download-button {
+    background: #3f72ff; /* Blue */
+}
+
 @media (max-width: 768px) {
     .main-container {
         flex-direction: column;

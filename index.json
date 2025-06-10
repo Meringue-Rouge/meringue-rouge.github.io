@@ -20,8 +20,16 @@
     "path": "news/pso2-youtube.md"
   },
   {
+    "type": "news",
+    "path": "news/website-opening.md"
+  },
+  {
     "type": "assets",
     "path": "assets/bakin-attack-priorities.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/bakin-commonev-afterturnstart.md"
   },
   {
     "type": "assets",
@@ -30,6 +38,10 @@
   {
     "type": "assets",
     "path": "assets/bakin-triple-cameras.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/bakin_terrain_smoother.md"
   },
   {
     "type": "assets",
@@ -42,6 +54,14 @@
   {
     "type": "assets",
     "path": "assets/html-advice-windows.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/lazy-enhanced-footstep.md"
+  },
+  {
+    "type": "assets",
+    "path": "assets/template_event_maker.md"
   },
   {
     "type": "assets",

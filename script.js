@@ -263,6 +263,9 @@ function toggleItem(button, file) {
             if (item.other_link) {
                 linksHtml += `<a href="${item.other_link}" target="_blank" class="link-button other-button">Website</a>`;
             }
+            if (item.download_link) {
+                linksHtml += `<a href="${item.download_link}" target="_blank" class="link-button download-button">Download</a>`;
+            }
             
             const thumbnailHtml = item.thumbnail ? `<img src="${item.thumbnail}" alt="Thumbnail" class="full-thumbnail">` : '';
             expandedDiv.innerHTML = `

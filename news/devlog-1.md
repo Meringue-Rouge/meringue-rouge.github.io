@@ -7,5 +7,6 @@ type: news
 thumbnail: images/character-mobile.png
 other_link: https://www.youtube.com/watch?v=n4uOAqYYgKs
 content: |
-  Devlog 1 for Hard Magic (a magical girl RPG). The game is being redone right now, devlog soon.
+  - **Devlog 1 for Hard Magic (a magical girl RPG). The game is being redone right now, devlog soon.**
+  - Hard Magic』（魔法少女RPG）のデブログ1。 このゲームは今作り直し中。
 ---

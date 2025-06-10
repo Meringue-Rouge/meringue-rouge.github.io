@@ -6,5 +6,6 @@ time: 20:10
 thumbnail: images/vrm_tutorial_thumb.png
 itch_link: https://meringue-rouge.itch.io/guide-rpg-developer-bakin-vrm-models-animations-rigging-and-more
 content: |
-  A complete guide on getting VRoid Models working with Bakin. Goes through everything from start to finish, including using the addons I've made and porting your animations.
+  - **A complete guide on getting VRoid Models working with Bakin. Goes through everything from start to finish, including using the addons I've made and porting your animations.**
+  - VRoidモデルをBakinで動作させるための完全ガイド。 私が作成したアドオンの使用やアニメーションの移植など、最初から最後まですべて説明しています。
 ---
