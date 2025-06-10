@@ -25,10 +25,10 @@ function updateSideImage() {
 function playCharacterClickSound(rarity) {
     let audioFile;
     switch (rarity) {
-        case 'Ultra Rare':
+        case 'Giga Rare':
             audioFile = 'ultra_rare_click.wav';
             break;
-        case 'Super Rare':
+        case 'Mega Rare':
             audioFile = 'super_rare_click.wav';
             break;
         default:
@@ -377,11 +377,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const sideImage = document.getElementById('side-image');
     const overlay = document.getElementById('gacha-overlay');
     const gachaData = [
-        { id: 1, src: 'images/character_alt_1.png', stars: 1, rarity: 'Common', title: 'Basic Character', description: 'A standard character design.', odds: 0.30 },
-        { id: 2, src: 'images/character_alt_2.png', stars: 2, rarity: 'Uncommon', title: 'Enhanced Character', description: 'A slightly upgraded character.', odds: 0.25 },
-        { id: 3, src: 'images/character_alt_3.png', stars: 3, rarity: 'Rare', title: 'Rare Character', description: 'A rare and unique character design.', odds: 0.30 },
-        { id: 4, src: 'images/character_alt_4.png', stars: 4, rarity: 'Super Rare', title: 'Super Rare Character', description: 'An exceptionally rare character design.', odds: 0.10 },
-        { id: 5, src: 'images/character_alt_5.png', stars: 5, rarity: 'Ultra Rare', title: 'Ultra Rare Character', description: 'The rarest character design imaginable.', odds: 0.05 }
+        { id: 1, src: 'images/character_alt_1.png', stars: 1, rarity: 'Common', title: 'Yvonne', description: 'Yvonne, the mascot of Meringue Rouge, in her royal dress. Not to be confused with a character from an online game who wielded a spear.', odds: 0.30 },
+        { id: 2, src: 'images/character_alt_2.png', stars: 2, rarity: 'Uncommon', title: 'Punk Yvonne', description: 'The vest and dress makes for a unique combination!', odds: 0.25 },
+        { id: 3, src: 'images/character_alt_3.png', stars: 3, rarity: 'Rare', title: 'Home Yvonne', description: 'All mascots have a home, right? Are homeless mascots even a thing?', odds: 0.30 },
+        { id: 4, src: 'images/character_alt_4.png', stars: 4, rarity: 'Mega Rare', title: 'Trackgirl Yvonne', description: 'This outfit was originally intended to be used for our protagonist, but was not used in the end.', odds: 0.10 },
+        { id: 5, src: 'images/character_alt_5.png', stars: 5, rarity: 'Giga Rare', title: 'Summer Yvonne', description: 'When designing mascots, they have to be visually appealing! Her three sizes ar-', odds: 0.05 }
     ];
 
     sideImage.addEventListener('click', () => {
