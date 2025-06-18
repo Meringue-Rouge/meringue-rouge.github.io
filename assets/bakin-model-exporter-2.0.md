@@ -1,7 +1,7 @@
 ---
-title: Bakin Model Exporter 2.0
+title: Bakin Model Exporter 2.2
 subtitle: Blender addon for exporting models into RPG Developer Bakin
-date: 2025-05-24
+date: 2025-06-18
 time: 20:26
 thumbnail: images/bakin_mdl_export.png
 itch_link: https://meringue-rouge.itch.io/bakin-blender-exporter
