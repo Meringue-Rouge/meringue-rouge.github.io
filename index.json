@@ -61,6 +61,10 @@
   },
   {
     "type": "assets",
+    "path": "assets/lipsync_messageaudio.md"
+  },
+  {
+    "type": "assets",
     "path": "assets/template_event_maker.md"
   },
   {
