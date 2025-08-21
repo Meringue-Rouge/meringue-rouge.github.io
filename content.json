@@ -1,0 +1,612 @@
+{
+  "bio": {
+    "en": "Working on RPG Developer Bakin assets, from VRoid specific tools to more broad automation tools. If you need help, feel free to ask me on X or Discord.",
+    "jp": "翻訳はDeepLを使用。 VRoidに特化したツールから、より広範な自動化ツールまで、RPGデベロッパーのBakinアセットに取り組んでいます。助けが必要なら、XかDiscordで気軽に聞いてくれ。"
+  },
+  "items": [
+    {
+      "type": "assets",
+      "title": {
+        "en": "Bakin Credits Sequence Builder",
+        "jp": "Bakinクレジットシーケンスビルダー"
+      },
+      "subtitle": {
+        "en": "Web tool for generating credit sequence events in RPG Developer Bakin",
+        "jp": "RPGデベロッパーBakinでクレジットシーケンスイベントを生成するウェブツール"
+      },
+      "date": "2025-08-20",
+      "time": "00:00",
+      "content": {
+        "en": "A web-based tool that generates credit sequence events for RPG Developer Bakin. Easily create scrolling credits with support for adding images during the sequence, simplifying the process of building professional-looking credits for your game.",
+        "jp": "RPGデベロッパーBakinのためのクレジットシーケンスイベントを生成するウェブベースのツール。シーケンス中に画像を追加する機能をサポートし、ゲーム用のプロフェッショナルなクレジットを作成するプロセスを簡素化します。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/bakin_credits_sequence_thumb.png",
+      "links": {
+        "website_link": "https://github.com/Meringue-Rouge/Bakin-Credits-Sequence-Builder"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Bakin 3D Video Panel",
+        "jp": "Bakin 3Dビデオパネル"
+      },
+      "subtitle": {
+        "en": "Tool for importing videos as 3D entities in RPG Developer Bakin",
+        "jp": "RPGデベロッパーBakinにビデオを3Dエンティティとしてインポートするツール"
+      },
+      "date": "2025-08-14",
+      "time": "00:00",
+      "content": {
+        "en": "Imports a video file and converts it into an event in RPG Developer Bakin, playable as a series of images in 3D space. Suitable for short videos due to memory constraints. Includes frame rate and screen size customization, exporting necessary files including an event TXT for timing. Audio can be added separately as a Sound Effect (SE).",
+        "jp": "ビデオファイルをインポートし、RPGデベロッパーBakinのイベントに変換し、3D空間で一連の画像として再生可能です。メモリ制約のため短いビデオに適しています。フレームレートと画面サイズのカスタマイズが可能で、タイミング用のイベントTXTを含む必要なファイルをエクスポートします。オーディオはサウンドエフェクト（SE）として別途追加できます。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/bakin_3d_video_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/bakin-3d-video-panel",
+        "github_link": "https://github.com/Meringue-Rouge/Bakin-3D-Video-Pane"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Bakin Texture Mask Map Generator",
+        "jp": "Bakinテクスチャマスクマップジェネレーター"
+      },
+      "subtitle": {
+        "en": "Tool for generating Mask Maps for RPG Developer Bakin",
+        "jp": "RPGデベロッパーBakinのためのマスクマップ生成ツール"
+      },
+      "date": "2025-08-14",
+      "time": "00:00",
+      "content": {
+        "en": "Generates Mask Maps from an Albedo file according to RPG Developer Bakin's specifications. Supports additional texture files like normal maps for enhanced terrain visuals. Simplifies the process of creating custom terrain textures without needing Blender.",
+        "jp": "アルベドファイルからRPGデベロッパーBakinの仕様に沿ったマスクマップを生成します。ノーマルマップなどの追加テクスチャファイルをサポートし、地形のビジュアルを強化します。Blenderを使わずにカスタム地形テクスチャを作成するプロセスを簡素化します。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/mask_map_generator_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/bakin-texture-mask-map-generator",
+        "github_link": "https://github.com/Meringue-Rouge/Bakin-Mask-Map-Generator"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "VRoid for Bakin",
+        "jp": "BakinのためのVRoid"
+      },
+      "subtitle": {
+        "en": "Blender Add-on for RPG Bakin",
+        "jp": "RPG BakinのためのBlenderアドオン"
+      },
+      "date": "2025-06-27",
+      "time": "12:37",
+      "content": {
+        "en": "A Blender Addon that adds RPG Developer Bakin specific features for VRoid VRM models. VRM 0.0 & 1.0 compatible.\n\nFeatures include: item hook bones, eye look directional shape keys, head tilt shape keys, multiple irises, multiple facial blushes, and more...",
+        "jp": "VRoidのVRMモデルにRPG開発者Bakin固有の機能を追加するBlenderアドオンです。VRM 0.0と1.0に対応しています。\n\n機能には、アイテムフックボーン、目線方向シェイプキー、頭部傾斜シェイプキー、複数の虹彩、複数の顔面チークなどがあります。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/vroid_for_bakin_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/vroid-for-rpg-developer-bakin",
+        "github_link": "https://github.com/Meringue-Rouge/bakin-vrm-blender"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "VRoid VRM Physics Enhancer",
+        "jp": "VRoid VRMフィジクスエンハンサー"
+      },
+      "subtitle": {
+        "en": "Blender Add-on to add various physics enhancements on VRoid models.",
+        "jp": "VRoidモデルに様々な物理強化を追加するBlenderアドオン。"
+      },
+      "date": "2025-06-26",
+      "time": "15:26",
+      "content": {
+        "en": "This Blender addon easily adds new physics interactions for certain body parts, body jiggle, and a long dress physics adjuster.\n\n5.5.0 adds breast physics enhancements and gravity.\n\n4.0.0 adds model scaling with physics adjustment, so that the physics resemble more closely to the 1x sized model.\n\n3.0.0 adds breast weight adjustments to the end bones, which can add a bit more dynamic movements.",
+        "jp": "このBlenderアドオンは、特定の体のパーツの新しい物理インタラクション、体の揺れ、ロングドレスの物理アジャスタを簡単に追加します。\n\n3.0.0では、エンドボーンにバストウェイトの調整が追加され、よりダイナミックな動きを加えることができるようになりました。\n\n4.0.0では、物理学的な調整を伴うモデルのスケーリングが追加され、物理学がより1xサイズのモデルに近づくようになりました。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/vrm_physics_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/vrm-physics-enhancer",
+        "github_link": "https://github.com/Meringue-Rouge/vrm-physics-enhancer"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Battle System Tweaker for RPG Developer Bakin",
+        "jp": "RPGデベロッパーBakinのためのバトルシステム調整ツール"
+      },
+      "subtitle": {
+        "en": "Quickly apply battle system code snippets easily!",
+        "jp": "バトルシステムのコードスニペットを簡単に適用！"
+      },
+      "date": "2025-06-25",
+      "time": "12:37",
+      "content": {
+        "en": "A website that can add various code tweaks to the default battle system!\n\nPreviously shown code snippets are already available, and more will be coming soon!",
+        "jp": "デフォルトのバトルシステムに様々なコードの微調整を加えることができるウェブサイト！\n\n以前に紹介したコードスニペットはすでに利用可能で、さらに近日公開予定です！"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/character_alt_1.png",
+      "links": {
+        "website_link": "https://meringue-rouge.github.io/Bakin-Battle-Tweaker/",
+        "github_link": "https://github.com/Meringue-Rouge/Bakin-Battle-Tweaker"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "VRM Facial Presets v3 for RPG Developer Bakin",
+        "jp": "RPGデベロッパーBakinのためのVRMフェイシャルプリセット v3"
+      },
+      "subtitle": {
+        "en": "Bakin Facial Expression presets for use with VRoid Models.",
+        "jp": "VRoidモデルで使用するためのBakin表情プリセット。"
+      },
+      "date": "2025-06-23",
+      "time": "16:10",
+      "content": {
+        "en": "Facial presets for RPG Developer Bakin. When added to a VRoid VRM model, this will let you easily get started with facial expressions, head turning, eye moving, or a combination of all three! It also adds the additional blend shapes that the VRoid for Bakin Blender Addon creates.",
+        "jp": "RPG開発者Bakinのためのフェイシャルプリセットです。VRoid VRMモデルに追加することで、表情、首振り、目の動き、3つの組み合わせを簡単に始めることができます！また、VRoid for Bakin Blender Addonが作成するブレンドシェイプも追加されます。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/vrmfacials3.png",
+      "links": {
+        "steam_link": "https://steamcommunity.com/sharedfiles/filedetails/?id=3507197035"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Lip Sync for Message Audio",
+        "jp": "メッセージオーディオのためのリップシンク"
+      },
+      "subtitle": {
+        "en": "Add lip sync to RPG Developer Bakin dialogue",
+        "jp": "RPGデベロッパーBakinのダイアログにリップシンクを追加"
+      },
+      "date": "2025-06-23",
+      "time": "23:10",
+      "content": {
+        "en": "An addon based off ThatDaleDude's Message Audio plugin, distributed with permission, that has been modified to support Lip Sync functionality! Have your actors visibly speak properly! Configuration might seem intimidating, but it is quite easy once you get the hang of things.",
+        "jp": "ThatDaleDudeのMessage Audioプラグインをベースに、リップシンク機能をサポートするように変更したアドオンです！リップシンク機能を追加しました！設定は難しく感じるかもしれませんが、コツをつかめばとても簡単です。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/messageaudio.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/lip-sync-message-audio-bakin"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Bakin Model Exporter",
+        "jp": "Bakinモデルエクスポート"
+      },
+      "subtitle": {
+        "en": "Blender addon for exporting models into RPG Developer Bakin",
+        "jp": "RPGデベロッパーBakinにモデルをエクスポートするためのBlenderアドオン"
+      },
+      "date": "2025-06-18",
+      "time": "20:26",
+      "content": {
+        "en": "An addon that (hopefully) can ease the tedium of importing models from Blender into RPG Developer Bakin, by building a DEF file in advance and building Mask Map files, among other features such as modifying some Bakin related configs of the materials.",
+        "jp": "BlenderからRPGデベロッパーBakinにモデルをインポートする際に、事前にDEFファイルを作成し、マスクマップファイルを作成することで、面倒な作業を軽減するアドオンです。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/bakin_mdl_export.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/bakin-blender-exporter",
+        "github_link": "https://github.com/Meringue-Rouge/bakin-blender-exporter"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Accurate Footsteps for RPG Developer Bakin",
+        "jp": "RPGデベロッパーBakinのための正確な足音"
+      },
+      "subtitle": {
+        "en": "⚠️ LAZY RELEASE - Add on foot landing effects, random sound effects, and more!",
+        "jp": "⚠️ 手抜きリリース - 足着地効果、ランダム効果音などを追加！"
+      },
+      "date": "2025-06-10",
+      "time": "15:32",
+      "content": {
+        "en": "⚠️ This is a lazy release: it will not work straight away, and is an outdated version from the one I used / showcased.\n\nThis collection of event sheets handles footstep tracking, terrain recognition, and spawning of Cast entities and playing sound effects.\n\nAs a lazy release, it uses some checks like IsAutoRunOn which aren't designed for your project, and things like the sound effect playing is more basic than the one showcased.\n\nIf the position doesn't work, you can enable the Draw String command to track the position of each foot's bones, and write down the position when it lands. Use this position to determine when the footstep should hit for each foot.",
+        "jp": "⚠️ これは手抜きのリリースです: すぐには動きませんし、私が使った/紹介したものより古いバージョンです。\n\nで紹介したように、このイベントシートのコレクションは、足音のトラッキング、地形の認識、Castエンティティのスポーン、効果音の再生を処理します。\n\n手抜きのリリースなので、IsAutoRunOnのような、あなたのプロジェクト用に設計されていないチェックをいくつか使っていますし、効果音の再生などは、ショーケースされたものよりも基本的です。\n\n位置がうまくいかない場合は、Draw Stringコマンドを有効にして、各足のボーンの位置を追跡し、着地したときの位置を書き留めることができます。この位置を使って、各足の足音がいつヒットするかを決めます。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/footstep_accurate_lazy.png",
+      "links": {
+        "download_link": "assets/footstep-eventsheets.zip"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Battle - 3 Additional Cameras for Player Decision",
+        "jp": "バトル - プレイヤー決定のための3つの追加カメラ"
+      },
+      "subtitle": {
+        "en": "Battle System code snippet for RPG Developer Bakin.",
+        "jp": "RPGデベロッパーBakinのためのバトルシステムコードスニペット。"
+      },
+      "date": "2025-06-09",
+      "time": "15:32",
+      "content": {
+        "en": "Makes the battle system use three additional normal cameras (not battle cameras) during the command decision phase: one for the player decision menus, one for targeting enemy targets, and one for targeting allies. Requires the creation of 3 different cameras for it to work properly.",
+        "jp": "バトルシステムは、コマンド決定フェイズに3つの追加カメラ（バトルカメラではない）を使用するようになります：1つはプレイヤーの決定メニュー用、1つは敵のターゲット用、1つは味方のターゲット用です。正しく動作させるには、3つの異なるカメラを作成する必要があります。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/code_snippet_thumb.png",
+      "links": {
+        "github_link": "https://github.com/Meringue-Rouge/bakin-battle-system-snippets/blob/main/Player%20Decision%3A%20Additional%20Cameras.md"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Battle - Run Common Event Before Turn Execution",
+        "jp": "バトル - ターン実行前に共通イベントを実行"
+      },
+      "subtitle": {
+        "en": "Battle System code snippet for RPG Developer Bakin.",
+        "jp": "RPGデベロッパーBakinのためのバトルシステムコードスニペット。"
+      },
+      "date": "2025-06-08",
+      "time": "15:32",
+      "content": {
+        "en": "This code snippet runs a common event with the name Before_Turn_Execution before the turn order of the battle is decided. Useful if you need to run a common event at the very start of the turn execution, regardless of who's acting first. In my case, I used it to replace a character's action if they chose a specific action type, without the battle system making it impossible to cancel the character's action.",
+        "jp": "このコード・スニペットは、戦闘のターン順が決まる前にBefore_Turn_Executionという名前の共通イベントを実行します。誰が最初に行動するかに関係なく、ターン実行の一番最初に共通イベントを実行する必要がある場合に便利です。私の場合は、特定の行動タイプを選択した場合、バトルシステムでキャラクターの行動をキャンセルできないようにすることなく、キャラクターの行動を置き換えるために使いました。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/code_snippet_thumb.png",
+      "links": {
+        "github_link": "https://github.com/Meringue-Rouge/bakin-battle-system-snippets/blob/main/Common%20Event%20Before%20Turn%20Execution.md"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Battle - Attack Priorities",
+        "jp": "バトル - 攻撃優先順位"
+      },
+      "subtitle": {
+        "en": "Battle System code snippet for RPG Developer Bakin.",
+        "jp": "RPGデベロッパーBakinのためのバトルシステムコードスニペット。"
+      },
+      "date": "2025-06-06",
+      "time": "15:32",
+      "content": {
+        "en": "This code snippet makes attacks with the tag #highpriority to go first in the turn order. If multiple characters use attacks with the tag #highpriority, they are sorted by speed.",
+        "jp": "このコード・スニペットは、#highpriorityのタグが付いた攻撃をターン順で最初に行うようにする。複数のキャラクターが#highpriorityタグを持つ攻撃を使用した場合、それらはスピード順にソートされる。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/code_snippet_thumb.png",
+      "links": {
+        "github_link": "https://github.com/Meringue-Rouge/bakin-battle-system-snippets/blob/main/Attack%20Priority.md"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "VRoid Normal Map Generator",
+        "jp": "VRoidノーマルマップジェネレーター"
+      },
+      "subtitle": {
+        "en": "Blender Add-on for generating normal maps",
+        "jp": "ノーマルマップ生成のためのBlenderアドオン"
+      },
+      "date": "2025-05-09",
+      "time": "20:10",
+      "content": {
+        "en": "An addon for any VRoid VRM model that can generate and correctly assign normal maps onto the skin, cloth and hair. Useful in RPG Developer Bakin and other VRM software.",
+        "jp": "VRoid VRMモデル用のアドオンで、ノーマルマップを生成し、スキン、クロス、ヘアに正しく割り当てることができます。RPG Developer Bakinやその他のVRMソフトウェアに便利です。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/vrm_normals_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/vroid-vrm-normal-map-generator",
+        "github_link": "https://github.com/Meringue-Rouge/VRM-Normal-Map-Generator"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "HTML Advice Windows",
+        "jp": "HTMLアドバイスウィンドウ"
+      },
+      "subtitle": {
+        "en": "Localized advice windows for RPG Bakin",
+        "jp": "RPG Bakinのためのローカライズされたアドバイスウィンドウ"
+      },
+      "date": "2025-04-25",
+      "time": "13:52",
+      "content": {
+        "en": "If you're localizing the engine, I've quickly created an HTML version of the advice windows, which should be significantly easier to translate than images. It also adds relevant links to the wiki page.",
+        "jp": "もしあなたがエンジンをローカライズするのであれば、画像よりも翻訳しやすいはずのHTML版のアドバイスウィンドウをすぐに作れます。また、ウィキページへの関連リンクも追加した。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/bakin_html_localizations_thumb.jpg",
+      "links": {
+        "github_link": "https://github.com/Meringue-Rouge/bakin-html-advice-windows-localization"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "ECRAZEUS Source Code",
+        "jp": "ECRAZEUSソースコード"
+      },
+      "subtitle": {
+        "en": "Project files for the action RPG ECRAZEUS, a game jam entry.",
+        "jp": "アクションRPG ECRAZEUSのプロジェクトファイル、ゲームジャム参加作品。"
+      },
+      "date": "2025-04-17",
+      "time": "20:10",
+      "content": {
+        "en": "The source code for ECRAZEUS. Since action RPGs tend to be popular, feel free to use the code to help create your own! It's got a rogue-like randomization of pre-existing levels past the castle level, dual weapons, weapon switching, jumping and stomping, alongside items, upgradable loot, and more. This game only works with controllers for now, but it's possible to make it playable with Keyboard and Mouse.",
+        "jp": "ECRAZEUSのソースコードです。アクションRPGが流行りがちなので、自作する際の参考にどうぞ！ローグライクなランダマイズで、城レベルを超えても二重武器、武器切り替え、ジャンプ、踏みつけ、アイテム、アップグレード可能な戦利品などなど。このゲームは今のところコントローラーでしか動作しないが、キーボードとマウスでプレイできるようにすることも可能だ。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/ecrazeus_sourcecode.jpg",
+      "links": {
+        "steam_link": "https://steamcommunity.com/sharedfiles/filedetails/?id=3459734557"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Template Event Maker for RPG Developer Bakin",
+        "jp": "RPGデベロッパーBakinのためのテンプレートイベントメーカー"
+      },
+      "subtitle": {
+        "en": "Website that lets you generate Template Events from Common Events.",
+        "jp": "共通イベントからテンプレートイベントを生成するウェブサイト。"
+      },
+      "date": "2025-04-12",
+      "time": "21:26",
+      "content": {
+        "en": "Generate custom template events for RPG Developer Bakin using this website and simple Note events in your event export!\n\nTemplate Events let you adjust parameters on predefined events on the map, without having to manually edit each instance or having to create tedious workarounds!\n\nTo use this tool correctly, you must read the GitHub documentation.",
+        "jp": "このウェブサイトを使用してRPG Developer Bakin用のカスタム・テンプレート・イベントを生成し、イベント・エクスポートでシンプルなノート・イベントを作成します。\n\nテンプレート・イベントは、各インスタンスを手動で編集したり、面倒な回避策を作成したりすることなく、マップ上の定義済みイベントのパラメーターを調整することができます。\n\nこのツールを正しく使用するには、GitHubドキュメントを読む必要があります。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/template_maker_thumb.png",
+      "links": {
+        "website_link": "https://meringue-rouge.github.io/Bakin-Template-Event-Maker/",
+        "github_link": "https://github.com/Meringue-Rouge/Bakin-Template-Event-Maker"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Bakin Terrain Smoother",
+        "jp": "Bakin Terrain Smoother"
+      },
+      "subtitle": {
+        "en": "Blender Add-on to smooth Bakin terrain models and separate per terrain texture. Unfinished.",
+        "jp": "BlenderアドオンでBakin地形モデルを滑らかにし、地形テクスチャごとに分離。未完成。"
+      },
+      "date": "2025-02-18",
+      "time": "20:26",
+      "content": {
+        "en": "This Blender addon is unfinished and probably won't be finished, but it might be handy to some.\n\nIt can select only specific tiles if you need precise control, but for smoothing I'd suggest using Blender's sculpt tools.",
+        "jp": "このBlenderアドオンは未完成で、おそらく完成することはないでしょう。\n\n正確なコントロールが必要な場合は、特定のタイルだけを選択できますが、スムージングにはBlenderのスカルプトツールを使うことをお勧めします。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/website_open_thumb.png",
+      "links": {
+        "github_link": "https://github.com/Meringue-Rouge/bakin-terrain-smoother"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "VRM Spacing Animation Baking",
+        "jp": "VRM間隔アニメーションベイキング"
+      },
+      "subtitle": {
+        "en": "Blender Add-on to adjust animation posture, bake hair physics, and more.",
+        "jp": "アニメーションの姿勢を調整し、ヘア物理をベイクするBlenderアドオン。"
+      },
+      "date": "2025-02-12",
+      "time": "20:26",
+      "content": {
+        "en": "This Blender addon is made to adjust entire animations rigged onto a VRM VRoid model: the arms, legs, hands, and more, so that you can turn generic Mixamo and other retargeted animations into something that more closely adheres to the character's physique, especially if they have large breasts or long dresses, which generally causes clipping.",
+        "jp": "このBlenderアドオンは、VRM VRoidモデルにリギングされたアニメーション全体（腕、脚、手など）を調整するためのもので、一般的なMixamoやその他のリターゲットアニメーションを、よりキャラクターの体格に近いものに変えることができます。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/vrm_spacing_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/vrm-spacing-animation-baking",
+        "github_link": "https://github.com/Meringue-Rouge/VRM-Spacing-Animation-Baking"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Tutorial: Porting VRoid Models into Bakin",
+        "jp": "チュートリアル：VRoidモデルをBakinに移植"
+      },
+      "subtitle": {
+        "en": "A full guide from start to finish on getting VRoid VRM models working in Bakin.",
+        "jp": "VRoid VRMモデルをBakinで動作させるための完全ガイド。"
+      },
+      "date": "2025-02-11",
+      "time": "20:10",
+      "content": {
+        "en": "A complete guide on getting VRoid Models working with Bakin. Goes through everything from start to finish, including using the addons I've made and land portFillerHereing your animations.",
+        "jp": "VRoidモデルをBakinで動作させるための完全ガイド。私が作成したアドオンの使用やアニメーションの移植など、最初から最後まですべて説明しています。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/vrm_tutorial_thumb.png",
+      "links": {
+        "EN_link": "https://steamcommunity.com/sharedfiles/filedetails/?id=3512058154",
+        "JP_link": "https://steamcommunity.com/sharedfiles/filedetails/?id=3512269914"
+      }
+    },
+    {
+      "type": "games",
+      "title": {
+        "en": "Selling Summer on Christmas Eve",
+        "jp": "クリスマスイブに夏を売る"
+      },
+      "subtitle": {
+        "en": "Sell summer wear on Christmas Eve to avoid bankruptcy!",
+        "jp": "クリスマスイブにサマーウェアを売って破産を回避！"
+      },
+      "date": "2024-12-08",
+      "time": "00:00",
+      "content": {
+        "en": "Selling Summer on Christmas Eve is a salesman simulator where you have to make enough money to pay off your summerwear company's debt before Christmas Eve. It's set in a coastal city during a snowy night, and you have to talk to civilians, negotiate prices, and avoid selling low.\n\nThis was created for the RPG Developer Bakin Christmas Jam 2024. It won the Runner-Up prize.",
+        "jp": "クリスマスイブに夏を売るは、クリスマスイブまでにサマーウェア会社の借金を返済できるだけのお金を稼がなければならないセールスマンシミュレーターだ。雪の降る夜の海岸沿いの街が舞台で、一般市民と話し、値段交渉をし、安売りを避けなければならない。\n\nこれはRPGデベロッパーBakin Christmas Jam 2024のために制作された。準グランプリを受賞。"
+      },
+      "icon": "🎮",
+      "thumbnail": "images/summer_xmas_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/selling-summer-on-christmas-eve"
+      }
+    },
+    {
+      "type": "games",
+      "title": {
+        "en": "ECRAZEUS",
+        "jp": "エクラゼウス"
+      },
+      "subtitle": {
+        "en": "An arcade PSO-like in the afterlife with Smash Run's powerups and dual wielding weapons?!",
+        "jp": "死後の世界でのアーケードPSO風ゲーム、スマッシュランのパワーアップと二刀流武器？！"
+      },
+      "date": "2024-10-30",
+      "time": "00:00",
+      "content": {
+        "en": "ECRAZEUS is an arcade action RPG, and a diet roguelite game, where you play as an angel fighting demons in the afterlife. It features dual-wielding weapons, powerups, and endless levels.\n\nThis was made for the RPG Developer Bakin Halloween Game Jam of 2024.",
+        "jp": "ECRAZEUSはアーケードアクションRPGで、死後の世界で悪魔と戦う天使としてプレイするダイエットローグライトゲーム。二刀流の武器、パワーアップ、無限のレベルが特徴。\n\nこれは2024年のRPG開発者バキン・ハロウィン・ゲーム・ジャムのために作られた。"
+      },
+      "icon": "🎮",
+      "thumbnail": "images/ecrazeus_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/ecrazeus"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "Enemy Spawner + Chase AI",
+        "jp": "敵スポナー＋追跡AI"
+      },
+      "subtitle": {
+        "en": "Event Sheets for RPG Developer BAKIN",
+        "jp": "RPGデベロッパーBAKINのためのイベントシート"
+      },
+      "date": "2024-10-01",
+      "time": "00:00",
+      "content": {
+        "en": "A set of event sheets for RPG Developer BAKIN that enables enemy spawning and chase AI behavior. Perfect for adding dynamic enemy encounters to your RPG games. Includes an enemy spawner system and implements a very basic but dumb chase AI.",
+        "jp": "RPG開発者BAKINのためのイベントシートセットで、敵のスポーンや追跡AIの動作を可能にします。RPGゲームにダイナミックな敵との遭遇を追加するのに最適です。敵のスポナー・システムを含み、非常に基本的だが間抜けな追跡AIを実装しています。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/enemy_spawner_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/enemy-spawner-enemy-chase-ai"
+      }
+    },
+    {
+      "type": "games",
+      "title": {
+        "en": "ISEKAI EVICTORS",
+        "jp": "イセカイ・エヴィクターズ"
+      },
+      "subtitle": {
+        "en": "Free the isekai'd youth and show them the meaning of life!",
+        "jp": "イセカイされた若者を解放し、人生の意味を教える！"
+      },
+      "date": "2024-08-26",
+      "time": "00:00",
+      "content": {
+        "en": "The year is 203X, and the youth of the United States have been running away into other worlds, or isekai. Sending people into isekais has become a profitable business, as the demand has skyrocketed following poor living conditions in the real world. You play as Charlie and Ashley, two agents of ISEKAI EVICTORS, a company that rescues people from isekais and teaches them the joys of real life. You'll use magical guns to shoot down the isekai'd youth and bring them back to reality.\n\nThe game was created for the RPG Developer Bakin Summer Game Jam of 2024.",
+        "jp": "時は203X年、アメリカの若者たちは異世界「イセカイ」に逃げ込んでいた。現実世界での劣悪な生活環境から需要が急増し、イセカイに人々を送り込むことは儲かるビジネスとなっている。プレイヤーは、イセカイから人々を救い出し、現実の生活の楽しさを教える会社「ISEKAI EVICTORS」のエージェント、チャーリーとアシュリーの2人。魔法の銃でイセカイの若者を撃ち落とし、現実に引き戻すのだ。\n\nこのゲームは、2024年のRPGデベロッパー・バキン・サマーゲームジャムのために制作された。"
+      },
+      "icon": "🎮",
+      "thumbnail": "images/isekai_evictors_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/isekai-evictors"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
+        "en": "VRM Physics Preset v1.1 (before native VRM support)",
+        "jp": "VRMフィジクスプリセット v1.1（ネイティブVRMサポート前）"
+      },
+      "subtitle": {
+        "en": "Jiggle physics preset for VRoid models in RPG Developer Bakin.",
+        "jp": "RPGデベロッパーBakinのVRoidモデル用揺れ物理プリセット。"
+      },
+      "date": "2024-05-11",
+      "time": "20:10",
+      "content": {
+        "en": "A physics preset that can be used for any VRM model imported as an FBX into Bakin, mainly for the jiggle physics. It'll automatically assign itself to common VRoid bones. It is outdated, in some aspects, as using a native VRM model will automatically assign dynamic physics, including the hair.",
+        "jp": "BakinにFBXとしてインポートされたVRMモデルに使用できる物理プリセット。一般的なVRoidボーンに自動的に割り当てられます。ネイティブのVRMモデルを使用すると、ヘアを含む動的な物理が自動的に割り当てられるため、時代遅れな面もあります。"
+      },
+      "icon sharply": "🎨",
+      "thumbnail": "images/physics_preset.jpg",
+      "links": {
+        "steam_link": "https://steamcommunity.com/sharedfiles/filedetails/?id=3242428190"
+      }
+    },
+    {
+      "type": "games",
+      "title": {
+        "en": "Dere Dress Alice",
+        "jp": "デア・ドレス・アリス"
+      },
+      "subtitle": {
+        "en": "Size-Shifting Beat-Them-Up! (Prototype)",
+        "jp": "サイズ変更ビート・アップ！（プロトタイプ）"
+      },
+      "date": "2019-07-31",
+      "time": "00:00",
+      "content": {
+        "en": "Dere Dress Alice was a prototype beat-em-up game where you play as Alice, who can transform between a big size and a small size, in order to fight enemies.\n\nThe game was posted online for the Fragment Jam in 2019, a game jam focused around unfinished games.",
+        "jp": "デア・ドレス・アリスは、大きなサイズと小さなサイズの間で変身できるアリスを操作して敵と戦う、プロトタイプのビート・アップ・ゲームだった。\n\nこのゲームは、2019年に開催された未完成のゲームに焦点を当てたゲームジャム「Fragment Jam」のためにオンラインに投稿された。"
+      },
+      "icon": "🎮",
+      "thumbnail": "images/deredressalice_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/dere-dress-alice"
+      }
+    },
+    {
+      "type": "games",
+      "title": {
+        "en": "Hegemone Pass (Old Demo)",
+        "jp": "ヘゲモネパス（旧デモ）"
+      },
+      "subtitle": {
+        "en": "Stealth JRPG set in the Greek Underworld",
+        "jp": "ギリシャの冥界を舞台にしたステルスJRPG"
+      },
+      "date": "2018-01-01",
+      "time": "00:00",
+      "content": {
+        "en": "Hegemone Pass is a Stealth JRPG set in the Greek Underworld, where you play as Persephone, trying to retrieve her throne from Demeter. This is an old demo version of the game.\n\nThis used to be a game in development, with the intention of a full release, but a tumultuous development cycle during a very difficult period of my life, alongside a failed Kickstarter, and a creative vision that swayed too severely, led to its cancellation.\n\nAlthough, I'm still impressed that I managed to get an RPG system working in HaxeFlixel, an engine with no Turn-based RPG systems to begin with. All from scratch! And a built-in cutscene editor!",
+        "jp": "Hegemone Passはギリシャの冥界を舞台にしたステルスJRPGで、プレイヤーはペルセポネとなってデメテルから王座を取り戻そうとする。これは古い体験版です。\n\n以前はフルリリースを目指して開発中のゲームだったが、私の人生の非常に困難な時期に波乱万丈の開発サイクルがあり、キックスターターの失敗や、クリエイティブなビジョンが大きく揺れ動いたこともあって、中止に追い込まれた。\n\nとはいえ、そもそもターン制RPGのシステムがないHaxeFlixelというエンジンでRPGのシステムを動かせるようになったことには、今でも感心している。すべてゼロから！カットシーン・エディターも内蔵している！"
+      },
+      "icon": "🎮",
+      "thumbnail": "images/hegemonepass_thumb.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/hegemone-pass-demo"
+      }
+    }
+  ]
+}
