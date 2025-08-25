@@ -196,7 +196,26 @@
     box-shadow: 0 4px 10px rgba(255, 0, 0, 0.2);
 }
 
+#feedback-box {
+    padding: 12px 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 204, 204, 0.8));
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 12px;
+    color: #ff3333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.2);
+}
+
 #lang-switch:hover {
+    background: linear-gradient(135deg, #ff3333, #ff6666);
+    color: #fff;
+    box-shadow: 0 6px 15px rgba(255, 0, 0, 0.3);
+}
+
+
+#feedback-box:hover {
     background: linear-gradient(135deg, #ff3333, #ff6666);
     color: #fff;
     box-shadow: 0 6px 15px rgba(255, 0, 0, 0.3);

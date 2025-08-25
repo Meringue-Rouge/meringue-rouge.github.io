@@ -31,6 +31,7 @@ async function translate(text, fromLang, toLang) {
 function toggleLang() {
     currentLang = currentLang === 'en' ? 'jp' : 'en';
     document.getElementById('lang-switch').textContent = currentLang === 'en' ? '日本語' : 'English';
+    document.getElementById('feedback-box').textContent = currentLang === 'en' ? 'Leave me a question or request anonymously!' : '匿名で質問やリクエストをお寄せください！';
     loadContent();
     playClickSound();
 }
