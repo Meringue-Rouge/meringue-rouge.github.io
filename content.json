@@ -7,6 +7,28 @@
     {
       "type": "assets",
       "title": {
+        "en": "Bakin Theme Editor",
+        "jp": "Bakinテーマエディター"
+      },
+      "subtitle": {
+        "en": "Web tool that generates RPG Developer Bakin themes.",
+        "jp": "RPGデベロッパーBakinのテーマを生成するウェブツール。"
+      },
+      "date": "2025-08-20",
+      "time": "00:00",
+      "content": {
+        "en": "Easily create custom themes for RPG Developer Bakin using this web-based tool. Customize colors, fonts, and more. These themes override the dark theme.",
+        "jp": "このウェブベースのツールを使用して、RPGデベロッパーBakinのカスタムテーマを簡単に作成できます。色、フォントなどをカスタマイズします。これらのテーマはダークテーマを上書きします。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/bakinthemeeditor.png",
+      "links": {
+        "website_link": "https://meringue-rouge.github.io/Bakin-Theme-Editor/"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
         "en": "Bakin DLsite Game Version Checker",
         "jp": "Bakin DLsiteゲームバージョンチェッカー"
       },
