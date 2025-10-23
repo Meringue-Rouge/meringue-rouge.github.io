@@ -7,6 +7,28 @@
     {
       "type": "assets",
       "title": {
+        "en": "Online Leaderboards for RPG Developer Bakin (Dreamlo)",
+        "jp": "RPGデベロッパーBakinのオンラインリーダーボード（Dreamlo）"
+      },
+      "subtitle": {
+        "en": "Plugin to add online leaderboards using Dreamlo service.",
+        "jp": "Dreamloサービスを使用してオンラインリーダーボードを追加するプラグイン。"
+      },
+      "date": "2025-10-23",
+      "time": "00:00",
+      "content": {
+        "en": "A plugin that integrates Dreamlo online leaderboards into RPG Developer Bakin. Easily submit and retrieve high scores for your game's leaderboards using Dreamlo's free service. Perfect for adding competitive elements to your game with minimal setup.",
+        "jp": "RPGデベロッパーBakinにDreamloオンラインリーダーボードを統合するプラグインです。Dreamloの無料サービスを使用して、ゲームのリーダーボードにハイスコアを簡単に送信および取得できます。最小限のセットアップでゲームに競争要素を追加するのに最適です。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/leaderboardtools.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/online-leaderboards-dreamlo-for-rpg-developer-bakin"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
         "en": "Bakin Theme Editor",
         "jp": "Bakinテーマエディター"
       },
