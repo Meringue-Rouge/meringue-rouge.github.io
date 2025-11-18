@@ -7,6 +7,28 @@
     {
       "type": "assets",
       "title": {
+        "en": "Interaction Prompts",
+        "jp": "インタラクションプロンプト"
+      },
+      "subtitle": {
+        "en": "Plugin that enables easy to integrate interaction talk prompts when facing NPCs or events using C#.",
+        "jp": "C#を使用して、NPCやイベントに直面したときに簡単に統合できるインタラクショントークプロンプトを有効にするプラグイン。"
+      },
+      "date": "2025-10-23",
+      "time": "00:00",
+      "content": {
+        "en": "No tedious eventing required! This plugin allows you to set up interaction prompts that appear when the player faces an NPC or event.",
+        "jp": "面倒なイベントは必要ありません！このプラグインを使用すると、プレイヤーがNPCやイベントに直面したときに表示されるインタラクションプロンプトを設定できます。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/interactprompt.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/interact-talk-message-ui-for-rpg-developer-bakin"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
         "en": "Online Leaderboards for RPG Developer Bakin (Dreamlo)",
         "jp": "RPGデベロッパーBakinのオンラインリーダーボード（Dreamlo）"
       },
