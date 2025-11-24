@@ -7,6 +7,28 @@
     {
       "type": "assets",
       "title": {
+        "en": "Dynamic Shop Item Replacements",
+        "jp": "動的ショップアイテムの置き換え"
+      },
+      "subtitle": {
+        "en": "Plugin that can dynamically replace shop items using C# events.",
+        "jp": "C#イベントを使用してショップアイテムを動的に置き換えるプラグイン。"
+      },
+      "date": "2025-10-23",
+      "time": "00:00",
+      "content": {
+        "en": "No more needing to make custom shop systems! Create placeholder items and let them be replaced dynamically by calling C# events to determine what placeholder gets replaced by what.",
+        "jp": "もうカスタムショップシステムを作る必要はありません！プレースホルダーアイテムを作成し、C#イベントを呼び出して、どのプレースホルダーが何に置き換えられるかを決定することで、動的に置き換えられるようにします。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/dyanmicshop.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/dynamic-shop-item-replacer-for-rpg-developer-bakin"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
         "en": "Interaction Prompts",
         "jp": "インタラクションプロンプト"
       },
