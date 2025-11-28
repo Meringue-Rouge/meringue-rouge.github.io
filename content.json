@@ -7,6 +7,28 @@
     {
       "type": "assets",
       "title": {
+        "en": "Dynamic Button Icons",
+        "jp": "動的ボタンアイコン"
+      },
+      "subtitle": {
+        "en": "An easy to use C# script to dynamically show keyboard and game controller icons corresponding to the exact keybindings assigned!",
+        "jp": "割り当てられた正確なキー設定に対応するキーボードとゲームコントローラーのアイコンを動的に表示する、使いやすいC#スクリプト！"
+      },
+      "date": "2025-10-23",
+      "time": "00:00",
+      "content": {
+        "en": "With the input device update, we can now change key bindings, but there wasn't an easy way to show the correct icons for the current keybindings. Not anymore! Now you can make your game more professional looking!",
+        "jp": "入力デバイスの更新により、キー設定を変更できるようになりましたが、現在のキー設定に対して正しいアイコンを表示する簡単な方法はありませんでした。もうそんなことはありません！これで、あなたのゲームをよりプロフェッショナルに見せることができます！"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/dynamicbuttons_ui.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/dynamic-button-icons-for-rpg-developer-bakin"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
         "en": "Dynamic Shop Item Replacements",
         "jp": "動的ショップアイテムの置き換え"
       },
