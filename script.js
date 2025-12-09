@@ -66,6 +66,34 @@ function switchTab(tab) {
 function loadContent() {
     console.log(`Loading content for tab: ${currentTab}`);
     let html = '';
+    
+    // --- STEAM BANNER CONFIGURATION ---
+    // REPLACE '1234567' WITH YOUR ACTUAL STEAM APP ID
+    const steamAppID = '1234567'; 
+    
+    const bannerTitle = currentLang === 'en' ? "✨ ATTENTION! ✨" : "✨ 注意！ ✨";
+    const bannerMsg = currentLang === 'en' 
+        ? "My first game release on Steam, Ecrazeus Castle, is coming soon! Please <strong>wishlist</strong> to support my work!" 
+        : "私の初のSteamゲームリリース、Ecrazeus Castleがまもなく登場します！ぜひ<strong>ウィッシュリスト</strong>に追加して、私の作品を応援してください！";
+
+    const steamBannerHTML = `
+        <div class="steam-promo-wrapper">
+            <div class="steam-promo-content">
+                <div class="steam-promo-text">
+                    <h2>${bannerTitle}</h2>
+                    <p>${bannerMsg}</p>
+                </div>
+                <iframe src="https://store.steampowered.com/widget/${steamAppID}/" class="steam-embed-frame"></iframe>
+            </div>
+        </div>
+    `;
+
+    // Only show banner on 'all' or 'games' tab
+    if (currentTab === 'all' || currentTab === 'games') {
+        html += steamBannerHTML;
+    }
+    // ----------------------------------
+
     if (currentTab === 'all') {
         const categories = ['news', 'assets', 'games'];
         categories.forEach(cat => {
@@ -75,7 +103,6 @@ function loadContent() {
                 html += '<div class="grid">';
                 catItems.forEach(item => {
                     const subtitleHtml = item.subtitle[currentLang] ? `<p class="subtitle">${item.subtitle[currentLang]}</p>` : '';
-                    const tagClass = `category-${item.type}`;
                     const contentHtml = item.content[currentLang];
                     let linksHtml = '';
                     Object.keys(item.links).forEach(key => {
@@ -102,7 +129,6 @@ function loadContent() {
             html += '<div class="grid">';
             catItems.forEach(item => {
                 const subtitleHtml = item.subtitle[currentLang] ? `<p class="subtitle">${item.subtitle[currentLang]}</p>` : '';
-                const tagClass = `category-${item.type}`;
                 const contentHtml = item.content[currentLang];
                 let linksHtml = '';
                 Object.keys(item.links).forEach(key => {
