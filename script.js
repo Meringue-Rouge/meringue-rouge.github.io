@@ -63,7 +63,7 @@ function renderContent() {
     // 2. Steam Banner (Always show on 'all' or 'games')
     if (currentTab === 'all' || currentTab === 'games') {
         // REPLACE WITH ACTUAL STEAM APP ID
-        const steamAppID = '1234567'; 
+        const steamAppID = '4106270'; 
         const bannerTitle = currentLang === 'en' ? "✨ Coming Soon! ✨" : "✨ 近日公開！ ✨";
         const bannerMsg = currentLang === 'en' 
             ? "My first game release on Steam, Ecrazeus Castle. Please <strong>wishlist</strong>!" 
