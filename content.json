@@ -7,6 +7,28 @@
     {
       "type": "assets",
       "title": {
+        "en": "VRM Hair Fur Shell Texturing",
+        "jp": "VRMヘアファーシェルテクスチャリング"
+      },
+      "subtitle": {
+        "en": "Blender plug-in that allows you to easily add fur/hair detailing to VRoid and VRM models. Can be used in RPG Developer Bakin.",
+        "jp": "VRoidおよびVRMモデルにファー/ヘアのディテールを簡単に追加できるBlenderプラグイン。RPG Developer Bakinでも使用できます。"
+      },
+      "date": "2025-10-24",
+      "time": "00:00",
+      "content": {
+        "en": "This Blender plug-in allows you to easily add fur/hair detailing to VRoid and VRM models. It can be used in RPG Developer Bakin.",
+        "jp": "このBlenderプラグインを使用すると、VRoidおよびVRMモデルにファー/ヘアのディテールを簡単に追加できます。RPG Developer Bakinでも使用できます。"
+      },
+      "icon": "🎨",
+      "thumbnail": "images/blender_hairfur.png",
+      "links": {
+        "github_link": "https://github.com/Meringue-Rouge/VRM-Fur-Shell-Texturing"
+      }
+    },
+    {
+      "type": "assets",
+      "title": {
         "en": "Dynamic Button Icons",
         "jp": "動的ボタンアイコン"
       },
