@@ -57,10 +57,10 @@ function renderContent() {
     // 2. HERO STEAM BANNER (All / Games)
     if (currentTab === 'all' || currentTab === 'games') {
         const steamAppID = '4106270'; 
-        const bannerTitle = currentLang === 'en' ? "Coming Soon" : "近日公開";
+        const bannerTitle = currentLang === 'en' ? "Ecrazeus Castle" : "Ecrazeus Castle";
         const bannerMsg = currentLang === 'en' 
-            ? "Journey through the forgotten shadows in <strong>Ecrazeus Castle</strong>. My latest RPG project is arriving soon on Steam." 
-            : "「Ecrazeus Castle」で忘れられた影を巡る旅へ。最新のRPGプロジェクトがまもなくSteamに登場します。";
+            ? "Become the new owner of <strong>Ecrazeus Castle</strong>. Coming 2026." 
+            : "<strong>エクラゼウス城</strong>の新しい所有者になろう。2026年公開予定。";
 
         html += `
             <div class="steam-promo-hero-container">

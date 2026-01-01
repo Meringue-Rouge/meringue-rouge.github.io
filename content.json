@@ -7,8 +7,8 @@
     {
       "type": "assets",
       "title": {
-        "en": "VRM Hair Fur Shell Texturing",
-        "jp": "VRMヘアファーシェルテクスチャリング"
+        "en": "VRM Hair Shell Texturing",
+        "jp": "VRMヘアシェルテクスチャリング"
       },
       "subtitle": {
         "en": "Blender plug-in that allows you to easily add fur/hair detailing to VRoid and VRM models. Can be used in RPG Developer Bakin.",
