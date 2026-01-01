@@ -1,449 +1,261 @@
-/* --- Base Variables & Theme (CHRISTMAS UPDATE) --- */
+/* --- Base Variables & Theme (MERINGUE CLASSIC) --- */
 :root {
-    --accent-pink: #d94949;  /* Deep Red/Crimson */
-    --accent-soft: #ff7878;  /* Festive Bright Red */
-    --text-dark: #3a3a3a;    /* Slightly darker text */
-    --text-light: #6a6a6a;
-    --bg-gray: #e6f0e6;      /* Very light pale green/snowy tint */
+    --accent-pink: #ff8fa3;  
+    --accent-soft: #ffb3c1;  
+    --text-dark: #4a4a4a;    
+    --text-light: #888888;
+    --bg-gray: #f8f9fa;      
     --card-bg: #ffffff;
-    --shadow-soft: 0 4px 20px rgba(217, 73, 73, 0.15);
-    --shadow-hover: 0 8px 25px rgba(217, 73, 73, 0.25);
-    --radius-lg: 20px;
-    --radius-sm: 12px;
-    /* New Christmas Variables */
-    --christmas-green: #38761d; /* Deep Holly Green */
-    --christmas-gold: #ffcc00;  /* Bright Gold/Yellow */
-    --christmas-lights-color: #ffcc00, #d94949, #56ab2f, #4a90e2; /* Gold, Red, Green, Blue */
+    --shadow-soft: 0 4px 20px rgba(255, 143, 163, 0.1);
+    --shadow-hover: 0 10px 30px rgba(255, 143, 163, 0.25);
+    --radius-lg: 24px;
+    --radius-sm: 14px;
+    --accent-secondary: #70d6ff; 
 }
 
 * { box-sizing: border-box; }
 
 body.meringue-theme {
     margin: 0;
-    font-family: 'Quicksand', sans-serif; /* Matching the logo vibe */
+    font-family: 'Quicksand', sans-serif;
     height: 100vh;
     background-color: var(--bg-gray);
     color: var(--text-dark);
     overflow: hidden;
-    position: relative; /* Needed for absolute positioned snow/lights */
+    position: relative;
 }
 
-/* 🎅 NEW: Snowfall Effect */
-.snow-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 10;
-}
-
-.snow {
-    width: 5px; height: 5px;
-    background: #fff;
-    border-radius: 50%;
-    position: absolute;
-    opacity: 0.8;
-    animation: snowfall linear infinite;
-    filter: blur(0.5px);
-}
-
-@keyframes snowfall {
-    0% { transform: translate3d(var(--x-start), var(--y-start), 0); opacity: 0.5; }
-    100% { transform: translate3d(var(--x-end), 100vh, 0); opacity: 0; }
-}
-
-/* Add many snow particles with unique animation delays/durations (simplified for output) */
-.snow:nth-child(3n) { animation-duration: 12s; animation-delay: 1s; }
-.snow:nth-child(3n+1) { animation-duration: 8s; animation-delay: 5s; }
-.snow:nth-child(3n+2) { animation-duration: 10s; animation-delay: 3s; }
-
-
-/* Background Art: Soft snowy/holly shapes */
 .background-art {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1;
-    /* Use Festive Colors */
     background: 
-        radial-gradient(circle at 10% 20%, rgba(217, 73, 73, 0.25) 0%, transparent 40%), /* Red */
-        radial-gradient(circle at 90% 80%, rgba(56, 118, 29, 0.25) 0%, transparent 40%); /* Green */
-    filter: blur(50px);
+        radial-gradient(circle at 15% 25%, rgba(255, 143, 163, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(112, 214, 255, 0.1) 0%, transparent 45%);
+    filter: blur(60px);
 }
 
-/* --- Scrollbars (Use festive red) --- */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--accent-soft); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-pink); }
-
-/* --- Main Layout --- */
 .main-container {
     display: flex;
     width: 90vw;
     height: 90vh;
     margin: 5vh auto;
     border-radius: var(--radius-lg);
-    background: rgba(255, 255, 255, 0.8); /* Less transparent for a cozy look */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.9);
-    position: relative; /* For light placement */
+    border: 1px solid rgba(255,255,255,0.8);
 }
 
-/* 🎅 NEW: Decorative Christmas Lights on main container border */
-.main-container::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 5px; /* Height of the light string */
-    background: repeating-linear-gradient(
-        90deg,
-        var(--christmas-gold) 0, var(--christmas-gold) 2.5%,
-        var(--accent-pink) 2.5%, var(--accent-pink) 5%,
-        var(--christmas-green) 5%, var(--christmas-green) 7.5%,
-        #4a90e2 7.5%, #4a90e2 10%
-    );
-    background-size: 400% 100%;
-    animation: lightFlicker 1.5s step-end infinite;
-    border-top-left-radius: var(--radius-lg);
-    border-top-right-radius: var(--radius-lg);
-    z-index: 5;
-}
-
-@keyframes lightFlicker {
-    0%, 100% { background-position: 0% 0; filter: brightness(1); }
-    33% { background-position: 10% 0; filter: brightness(1.2); }
-    66% { background-position: 50% 0; filter: brightness(1); }
-}
-
-/* --- Left Panel (Desktop Only) --- */
 .left-panel {
     width: 300px;
     padding: 30px;
-    background: #f9f9f9; /* Slightly off-white for snow effect */
+    background: rgb(255 0 0 / 60%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-right: 1px solid rgba(0,0,0,0.05);
+    border-right: 1px solid rgba(0,0,0,0.03);
     z-index: 2;
 }
 
 .logo-area { width: 100%; margin-bottom: 20px; text-align: center; }
 .main-logo { max-width: 100%; height: auto; border-radius: var(--radius-sm); }
 
-.character-wrapper {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 20px;
-}
+.character-wrapper { flex-grow: 1; display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: 20px; }
 #side-image {
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    /* Use a green/red festive shadow */
-    filter: drop-shadow(0 10px 15px rgba(56, 118, 29, 0.4)); 
+    max-height: 100%; max-width: 100%; object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(255, 143, 163, 0.2)); 
 }
 
 .bio {
-    background: var(--bg-gray);
+    background: rgba(255, 255, 255, 0.6);
     padding: 20px;
     border-radius: var(--radius-sm);
     font-size: 0.9rem;
     line-height: 1.5;
-    color: var(--text-light);
+    color: #000000;
     width: 100%;
     font-weight: 600;
-    /* Add a subtle green border for holly look */
-    border: 1px solid var(--christmas-green);
+    border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-/* --- Right Panel --- */
-.right-panel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-}
-
-/* Header */
-.header-top {
-    padding: 20px 40px;
-    display: flex;
-    justify-content: flex-end; /* Push controls right */
-    align-items: center;
-}
-
-.mobile-logo { display: none; } /* Hidden on desktop */
-
+.right-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+.header-top { padding: 20px 40px; display: flex; justify-content: flex-end; align-items: center; }
+.mobile-logo { display: none; }
 .controls { display: flex; align-items: center; gap: 15px; }
 
-.social-links {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
+.social-links { display: flex; align-items: center; gap: 10px; }
 .social-button {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: #fff;
+    width: 36px; height: 36px; border-radius: 50%; background: #fff;
     display: flex; justify-content: center; align-items: center;
-    color: var(--accent-pink); /* Red icon */
-    text-decoration: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: all 0.2s ease;
-    border: 1px solid var(--accent-pink); /* Red border */
+    color: var(--accent-pink); text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.2s ease;
 }
-.social-button:hover {
-    transform: translateY(-2px);
-    color: var(--christmas-gold); /* Gold hover text */
-    background: var(--accent-pink); /* Red background */
-    box-shadow: 0 5px 15px rgba(217, 73, 73, 0.4);
-}
+.social-button:hover { transform: translateY(-2px); background: var(--accent-pink); color: white; }
 
 #lang-switch {
-    padding: 8px 18px;
-    border-radius: 20px;
-    border: 1px solid var(--christmas-green); /* Green border */
-    background: transparent;
-    color: var(--christmas-green); /* Green text */
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
+    padding: 8px 18px; border-radius: 20px; border: 1px solid var(--accent-pink);
+    background: transparent; color: var(--accent-pink); font-family: 'Quicksand', sans-serif;
+    font-weight: 700; cursor: pointer; transition: 0.2s;
 }
-#lang-switch:hover { background: var(--christmas-green); color: white; }
+#lang-switch:hover { background: var(--accent-pink); color: white; }
 
-/* Nav Bar */
-.nav-bar {
-    padding: 0 40px 10px;
-    display: flex;
-    gap: 20px;
-    justify-content: flex-end;
-    border-bottom: 1px solid var(--accent-soft); /* Soft red line */
-}
-
+.nav-bar { padding: 0 40px 10px; display: flex; gap: 30px; justify-content: flex-end; border-bottom: 1px solid rgba(0,0,0,0.05); }
 .tab-button {
-    background: none;
-    border: none;
-    padding: 10px 5px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-light);
-    cursor: pointer;
-    position: relative;
-    transition: color 0.3s;
+    background: none; border: none; padding: 10px 5px; font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem; font-weight: 700; color: var(--text-light); cursor: pointer; position: relative;
 }
-
-.tab-button::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; width: 0%; height: 3px;
-    background: var(--accent-pink); /* Red accent line */
-    transition: width 0.3s ease;
-    border-radius: 3px;
-}
-
-.tab-button:hover { color: var(--accent-pink); }
 .tab-button.active { color: var(--accent-pink); }
-.tab-button.active::after { width: 100%; }
+.tab-button.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--accent-pink); border-radius: 3px; }
 
-/* --- Content Area --- */
-.content-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 30px 40px;
-}
+.content-area { flex: 1; overflow-y: auto; padding: 30px 40px; }
 
-/* COMPACT GRID LAYOUT */
-.grid {
-    display: grid;
-    /* Forces max 2 columns. minmax ensures they don't get too squished */
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
-    gap: 20px;
-    padding-bottom: 40px;
-}
-
-/* COMPACT HORIZONTAL CARDS */
-.card {
-    background: #fff;
-    border-radius: var(--radius-sm);
-    display: flex; /* Horizontal Layout */
-    height: 110px; /* Fixed small height */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(0,0,0,0.02);
+/* --- HERO STEAM BANNER --- */
+.steam-promo-hero-container {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
+    margin-bottom: 40px;
+    background-size: 120% auto; /* Oversized for movement */
+    background-image: url('images/promo-ec-bg.png'); 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    /* SLOW BACKGROUND MOVEMENT */
+    animation: bgPan 30s ease-in-out infinite alternate;
 }
 
-.card:hover {
-    transform: translateY(-3px) scale(1.01); /* More pronounced hover */
-    box-shadow: 0 10px 30px rgba(217, 73, 73, 0.35); /* Red shadow */
+@keyframes bgPan {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
 }
 
-.thumbnail {
+.promo-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(90deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 100%);
+    z-index: 1;
+}
+
+.promo-hero-image {
+    position: absolute;
+    height: 140%; 
+    width: auto;
+    left: -12%; 
+    bottom: -50%; /* Positioned 50% lower on desktop */
+    z-index: 2;
+    filter: drop-shadow(20px 0 30px rgba(0,0,0,0.25));
+    object-fit: contain;
+    /* AUTOMATIC FLOATING ANIMATION */
+    animation: heroFloat 6s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.promo-content-wrapper {
+    position: relative;
+    z-index: 3;
     height: 100%;
-    width: 110px; /* Square thumbnail */
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-.card-body {
-    padding: 12px 15px;
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow: hidden;
+    align-items: flex-end; 
+    padding: 40px 60px;
 }
 
-.title {
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 0 0 4px 0;
-    color: var(--text-dark);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.subtitle {
-    font-size: 0.75rem;
-    color: var(--christmas-green); /* Use green for subtitle */
-    margin: 0 0 6px 0;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Description is truncated to 1 line or hidden if needed */
-.content-text {
-    font-size: 0.75rem;
-    color: var(--text-light);
-    margin-bottom: 8px;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.2;
-}
-
-.link-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.link-button {
-    font-size: 0.65rem;
-    padding: 4px 10px;
-    border-radius: 10px;
-    text-decoration: none;
+/* Glassmorphism Box with Passing Glow */
+.promo-text-hover {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     color: #fff;
-    font-weight: 700;
-    text-transform: uppercase;
-    background: var(--text-light); /* Default gray */
-    transition: opacity 0.2s;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-bottom: 25px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden; /* Needed for the shine effect */
 }
-.link-button:hover { opacity: 0.8; }
 
-/* Specific Button Colors (Updated to blend better with theme) */
+/* PASSING GLOW (SHINE) EFFECT */
+.promo-text-hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.3) 50%, 
+        transparent 100%
+    );
+    transform: skewX(-25deg);
+    animation: shine 5s infinite;
+}
+
+@keyframes shine {
+    0% { left: -150%; }
+    20% { left: 150%; }
+    100% { left: 150%; }
+}
+
+.promo-text-hover h2 { margin: 0 0 10px 0; font-size: 1.8rem; color: #fff; font-weight: 700; }
+.promo-text-hover p { margin: 0; font-size: 1.1rem; line-height: 1.4; opacity: 0.95; }
+
+.steam-embed-frame {
+    width: 100%;
+    max-width: 450px;
+    height: 190px;
+    border: none;
+    /* Removed all outline/shadow styling */
+}
+
+/* --- Grid & Cards --- */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 20px; }
+.card {
+    background: #fff; border-radius: var(--radius-sm); display: flex; height: 110px;
+    border: 1px solid rgba(0,0,0,0.03); overflow: hidden; transition: 0.2s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+.thumbnail { width: 110px; object-fit: cover; }
+.card-body { padding: 12px 15px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.title { font-size: 1rem; font-weight: 700; margin: 0; color: var(--text-dark); }
+.subtitle { font-size: 0.75rem; color: var(--accent-pink); font-weight: 600; margin: 2px 0; }
+.content-text { font-size: 0.75rem; color: var(--text-light); line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+.link-buttons { display: flex; gap: 8px; margin-top: 8px; }
+.link-button { font-size: 0.65rem; padding: 4px 10px; border-radius: 10px; text-decoration: none; color: #fff; font-weight: 700; background: #ccc; }
+
 .itch-button { background: #ff4d4d; } 
 .steam-button { background: #171a21; } 
 .website-button { background: var(--accent-pink); } 
 .github-button { background: #555; } 
 
-/* --- Steam Banner (Festive Update) --- */
-.steam-promo-wrapper {
-    margin-bottom: 30px;
-    padding: 5px; /* Border width */
-    /* Soft festive gradient border */
-    background: repeating-linear-gradient(45deg, var(--accent-pink), var(--accent-pink) 10px, var(--christmas-green) 10px, var(--christmas-green) 20px);
-    border-radius: var(--radius-sm);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    animation: none;
-}
+/* --- Scrollbars --- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--accent-soft); border-radius: 4px; }
 
-.steam-promo-content {
-    background: #fff;
-    border-radius: 6px;
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.steam-text {
-    flex: 0 1 300px;
-    text-align: left;
-}
-
-.steam-text h2 {
-    color: var(--accent-pink) !important;
-    text-shadow: 1px 1px 1px #fff;
-}
-
-.steam-embed-frame { width: 646px; height: 190px; border: none; }
-
-/* --- MOBILE LAYOUT --- */
+/* --- MOBILE --- */
 @media (max-width: 900px) {
-    .main-container {
-        width: 100%; height: 100%;
-        margin: 0;
-        border-radius: 0;
-        border: none;
-    }
-    
-    /* Remove the light string border on mobile for better fit */
-    .main-container::before {
-        display: none;
-    }
+    .main-container { width: 100%; height: 100%; margin: 0; border-radius: 0; }
+    .left-panel { display: none; }
+    .mobile-logo { display: block; height: 40px; }
+    .header-top { justify-content: space-between; padding: 15px 20px; background: #fff; }
+    .nav-bar { justify-content: center; }
+    .grid { grid-template-columns: 1fr; }
 
-    /* REMOVE CHARACTER PANEL ENTIRELY */
-    .left-panel {
-        display: none; 
-    }
-
-    .right-panel {
-        width: 100%;
-    }
-
-    /* Mobile Header adjustments */
-    .header-top {
-        justify-content: space-between;
-        padding: 15px 20px;
-        background: #fff;
-        box-shadow: 0 2px 10px rgba(217, 73, 73, 0.1); /* Red shadow */
-    }
-
-    .mobile-logo {
-        display: block;
-        height: 40px;
-        border-radius: 6px;
-    }
-
-    .nav-bar {
-        justify-content: center;
-        padding: 10px;
-        background: #fcfcfc;
-        border-bottom: 1px solid var(--accent-soft);
-    }
-
-    .content-area {
-        padding: 20px;
-    }
-
-    /* Force single column on very small screens, but keep horizontal card layout */
-    .grid {
-        grid-template-columns: 1fr; 
-    }
+    .steam-promo-hero-container { min-height: 600px; background-size: cover; animation: none; }
+    .promo-content-wrapper { align-items: center; padding: 20px; text-align: center; }
+    .promo-hero-image { height: 80%; left: -20%; bottom: -10%; opacity: 0.6; animation-duration: 4s; } 
+    .steam-embed-frame { width: 100%; }
 }
