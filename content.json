@@ -5,6 +5,28 @@
   },
   "items": [
     {
+      "type": "games",
+      "title": {
+        "en": "Dominights: Night at the Ball",
+        "jp": "Dominights: ナイト・アット・ザ・ボール"
+      },
+      "subtitle": {
+        "en": "2-4 local multiplayer Mario Party-like board game with TCG-like dominos and elegant ladies!",
+        "jp": "2-4人用のローカルマルチプレイヤー、マリオパーティ風ボードゲーム。TCG風のドミノとエレガントな女性たちが登場！"
+      },
+      "date": "2026-01-28",
+      "time": "00:00",
+      "content": {
+        "en": "A",
+        "jp": "A"
+      },
+      "icon": "🎮",
+      "thumbnail": "images/dominights_itch.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/dominights-night-at-the-ball"
+      }
+    },
+    {
       "type": "assets",
       "title": {
         "en": "VRM Hair Shell Texturing",
