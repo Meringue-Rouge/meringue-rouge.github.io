@@ -7,6 +7,28 @@
     {
       "type": "games",
       "title": {
+        "en": "When her town went wild...",
+        "jp": "彼女の町がワイルドになったとき..."
+      },
+      "subtitle": {
+        "en": "A small 3D action game where the town becomes more dangerous as it goes on...",
+        "jp": "町が進むにつれて危険度が増していく小さな3Dアクションゲーム..."
+      },
+      "date": "2026-01-28",
+      "time": "00:00",
+      "content": {
+        "en": "A",
+        "jp": "A"
+      },
+      "icon": "🎮",
+      "thumbnail": "images/whenhertown.png",
+      "links": {
+        "itch_link": "https://meringue-rouge.itch.io/when-her-town-went-wild"
+      }
+    },
+    {
+      "type": "games",
+      "title": {
         "en": "Dominights: Night at the Ball",
         "jp": "Dominights: ナイト・アット・ザ・ボール"
       },
