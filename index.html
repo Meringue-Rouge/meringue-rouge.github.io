@@ -7,94 +7,107 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@MeringueRouge">
     <meta name="twitter:title" content="Meringue Rouge">
-    <meta name="twitter:description" content="RPG Developer Bakin assets, games, and more!">
+    <meta name="twitter:description" content="We've moved!">
     <meta property="og:title" content="Meringue Rouge">
     <meta property="og:type" content="website">
 
-    <title>Meringue Rouge</title>
+    <title>Meringue Rouge – We've Moved</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Extra styles just for the moved notice */
+        body.meringue-theme {
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .moved-notice {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.9);
+            margin: 20px;
+        }
+
+        .moved-notice h1 {
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            font-weight: 700;
+            color: #ff8fa3;
+            margin: 0 0 20px 0;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .moved-notice p {
+            font-size: 1.25rem;
+            color: #4a4a4a;
+            margin: 0 0 32px 0;
+            line-height: 1.5;
+        }
+
+        .moved-notice a.button {
+            display: inline-block;
+            background: #ff8fa3;
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(255, 143, 163, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .moved-notice a.button:hover {
+            background: #ff7a92;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 143, 163, 0.45);
+        }
+
+        .moved-notice .url {
+            margin-top: 28px;
+            font-size: 1.05rem;
+            color: #888;
+            word-break: break-all;
+        }
+
+        .moved-notice .url a {
+            color: #ff8fa3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .moved-notice .url a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body class="meringue-theme">
     <div class="background-art"></div>
-    
-    <div class="main-container">
-        <div class="left-panel">
-            <div class="logo-area">
-                <img src="images/logo.png" alt="Meringue Rouge Logo" class="main-logo">
-            </div>
-            <div class="character-wrapper">
-                <img id="side-image" src="images/character.png" alt="Meringue Rouge Character">
-            </div>
-            <div id="bio-text" class="bio"></div>
-        </div>
 
-        <div class="right-panel">
-            <div class="header-top">
-                <img src="images/logo.png" alt="Logo" class="mobile-logo">
-                
-                <div class="nav-bar">
-                    <button class="tab-button active" onclick="switchTab('all')">All</button>
-                    <button class="tab-button" onclick="switchTab('assets')">Assets</button>
-                    <button class="tab-button" onclick="switchTab('games')">Games</button>
-                </div>
-                <div class="controls">
-                    <div class="social-links">
-                        <a href="https://www.youtube.com/@MeringueRouge" target="_blank" class="social-button"><i class="fab fa-youtube"></i></a>
-                        <a href="https://x.com/MeringueRouge" target="_blank" class="social-button"><i class="fab fa-x-twitter"></i></a>
-                        <a href="https://github.com/Meringue-Rouge" target="_blank" class="social-button"><i class="fab fa-github"></i></a>
-                        <a href="https://peing.net/ja/9d5a158dcb475f" target="_blank" class="social-button feedback-btn"><i class="fas fa-envelope"></i></a>
-                        <a href="https://discord.gg/HEs9faqb2u" target="_blank" class="social-button feedback-btn"><i class="fab fa-discord"></i></a>
-                    </div>
-                    <button id="lang-switch" onclick="toggleLang()">日本語</button>
-                </div>
-            </div>
+    <div class="moved-notice">
+        <h1>We moved!</h1>
+        <p>This site is no longer updated here.<br>
+           Please visit the new website:</p>
+        
+        <a class="button" href="https://meringue-rouge.neocities.org/">
+            Go to the new site →
+        </a>
 
-
-            <div id="content" class="content-area"></div>
+        <div class="url">
+            <a href="https://meringue-rouge.neocities.org/">https://meringue-rouge.neocities.org/</a>
         </div>
     </div>
-
-    <script src="script.js"></script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
 </body>
 </html>
